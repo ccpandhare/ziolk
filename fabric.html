@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="css/fabric.css">
+    <link rel="stylesheet" href="css/spectrum.css">
+  </head>
+  <body>
+    <canvas id="main" width="300" height="600"></canvas>
+    <div id="addobj" style="border: 1px dashed #000">
+      Add Object Section:<br>
+      <input type="file" id="imgtoadd" value="" multiple="" />
+      <button type="button" id="addimg">Add Image</button><br/>
+      <input type="text" id="texttoadd">
+      <button type="button" id="addtext" name="button">Add Text</button><br>
+    </div>
+    <div id="textops" style="display:none; border: 1px dashed #000">
+      Text Edit Section: <br>
+      <button type="button" class="bold">Bold</button>
+      <button type="button" class="italic">Italic</button>
+      <button type="button" class="textDecoration">Text Decoration</button>
+      <button type="button" class="remove">Remove</button>
+      <select class="font">
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Arial">Arial</option>
+        <option value="Ananda Namaste">Ananda Namaste</option>
+      </select>
+      <br>
+      Update Text: <input type="text" name="updatetext"/>
+      <br>
+      Text Colour: <input type="text" class="color" name="updatefill"/>
+      &nbsp;
+      Outline Colour: <input type="text" class="color allowempty" name="updatestroke"/>
+      &nbsp;
+      Background Colour: <input type="text" class="color allowempty" name="updateback"/>
+    </div>
+
+    <section style="position: absolute; top:0; right: 0; display: inline-block;">
+      Instructions:<br>
+      <ul>
+        <li>Add Text or Images.</li>
+        <li>Click on any object(text/image)<br>to show resize/rotate controls.</li>
+        <li>Click on a text to edit its properties.</li>
+        <li>While editing text, keyboard shortcuts<br>like ctrl+b, ctrl+i, ctrl+delete/backspace<br>ctrl+u can be used</li>
+        <li>Click on a layer in the following list or<br>on the canvas to select it</li>
+      </ul>
+      Layers:<br/>
+      <ol id="layers">
+
+      </ol>
+    </section>
+  </body>
+  <script src="js/jquery.min.js" charset="utf-8"></script>
+  <script src="js/fabric-custom.min.js" charset="utf-8"></script>
+  <script src="js/spectrum.js" charset="utf-8"></script>
+  <script src="js/fabric.js" charset="utf-8"></script>
+</html>
