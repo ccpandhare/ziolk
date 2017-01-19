@@ -5,17 +5,52 @@ $(".color").spectrum({
     showAlpha: true,
     allowEmpty: true
 });
+fabric.Object.prototype.set({
+    transparentCorners: false,
+    cornerColor: '#7777ff'
+});
 //create fabric wrapper around canvas
-var canvas = new fabric.Canvas('main');
+var canvas = new fabric.Canvas('main', {preserveObjectStacking: true});
 function addText(text) {
   var oText = new fabric.IText(text, {left: 100, top: 150, editable: false});
   canvas.add(oText);
+  var thisObj = canvas.getObjects()[canvas.getObjects().length - 1];
+  canvas.setActiveObject(thisObj);
+  //thisObj.left = Math.abs(Math.random()*(canvas.width));
+  //thisObj.top = Math.abs(Math.random()*(canvas.height));
+  thisObj.center();
+  thisObj.setCoords();
+  canvas.renderAll();
 }
 function addImage(url) {
   var img = new fabric.Image.fromURL(url, function (oImg) {
     oImg.scaleToWidth(225);
     canvas.add(oImg);
+    var thisObj = canvas.getObjects()[canvas.getObjects().length - 1];
+    canvas.setActiveObject(thisObj);
+    //thisObj.left = Math.abs(Math.random()*(canvas.width));
+    //thisObj.top = Math.abs(Math.random()*(canvas.height));
+    thisObj.center();
+    thisObj.setCoords();
+    canvas.renderAll();
   });
+}
+function addRect() {
+  var rect = new fabric.Rect({
+    left: 100,
+    top: 100,
+    fill: 'red',
+    width: 50,
+    height: 30
+  });
+  canvas.add(rect);
+  var thisObj = canvas.getObjects()[canvas.getObjects().length - 1];
+  canvas.setActiveObject(thisObj);
+  //thisObj.left = Math.abs(Math.random()*(canvas.width));
+  //thisObj.top = Math.abs(Math.random()*(canvas.height));
+  thisObj.center();
+  thisObj.setCoords();
+  canvas.renderAll();
 }
 
 function layerOps(get) {
@@ -31,9 +66,21 @@ function getLayers() {
     var value;
     if (object.type == "i-text") value = object.text;
     else value = "";
-    layers += "<li onclick=\"layerOps("+index+")\">" + index + " - " + object.type + " - " + value + "</li>\n";
+    layers += "<li><span onclick=\"layerOps("+index+")\">" + index + " - " + object.type + " - " + value + "</span>&nbsp;<span onclick=\"moveFront("+index+")\">(Front)</span>&nbsp;<span onclick=\"moveBack("+index+")\">(Back)</span></li>\n";
   }
   $("#layers").html(layers);
+}
+
+function moveFront(index) {
+  canvas.getObjects()[index].bringForward();
+  canvas.discardActiveObject();
+  canvas.renderAll();
+}
+
+function moveBack(index) {
+  canvas.getObjects()[index].sendBackwards();
+  canvas.discardActiveObject();
+  canvas.renderAll();
 }
 
 // render the image in our view
@@ -111,12 +158,23 @@ $("input[name='updatetext']").keyup(function(){
   canvas.renderAll();
   }
 });
+$("#addrect").click(function(){
+  addRect()
+});
 $(".color").change(function(){
   var active = canvas.getActiveObject();
   if (active.type == 'i-text') {
-    active.set('backgroundColor',$("input[name='updateback']").val());
-    active.set('fill',$("input[name='updatefill']").val());
-    active.set('stroke',$("input[name='updatestroke']").val());
+    active.set('backgroundColor',$("#textops input[name='updateback']").val());
+    active.set('fill',$("#textops input[name='updatefill']").val());
+    active.set('stroke',$("#textops input[name='updatestroke']").val());
+    canvas.renderAll();
+  }
+});
+$("#rectops input[name='updatefill']").change(function(){
+  var active = canvas.getActiveObject();
+  if (active.type == 'rect') {
+    active.set('fill',$("#rectops input[name='updatefill']").val());
+    //active.set('stroke',$("#textops input[name='updatestroke']").val());
     canvas.renderAll();
   }
 });
@@ -127,22 +185,32 @@ $(document).keyup(function(e){
   if (e.which == 85 && (e.ctrlKey || e.metaKey)) $(".textDecoration").trigger("click");
 });
 
-function textops(object) {
+function objectops(object) {
   if(object.type == "i-text") {
     $("#textops").slideDown('fast');
-    $("input[name='updatetext']").val(object.text);
-    $("input[name='updatestrokewidth']").val(object.strokeWidth);
-    $("input[name='updatefill']").spectrum("set",object.fill);
-    $("input[name='updatestroke']").spectrum("set",object.stroke);
-    $("input[name='updateback']").spectrum("set",object.backgroundColor);
+    $("#textops input[name='updatetext']").val(object.text);
+    $("#textops input[name='updatestrokewidth']").val(object.strokeWidth);
+    $("#textops input[name='updatefill']").spectrum("set",object.fill);
+    $("#textops input[name='updatestroke']").spectrum("set",object.stroke);
+    $("#textops input[name='updateback']").spectrum("set",object.backgroundColor);
+    $("#rectops").slideUp('fast');
   }
-  else $("#textops").slideUp('fast');
+  else if(object.type == "rect") {
+    $("#rectops").slideDown('fast');
+    $("#textops input[name='updatestroke']").spectrum("set",object.stroke);
+    $("#rectops input[name='updatefill']").spectrum("set",object.fill);
+    $("#textops").slideUp('fast');
+  }
+  else {
+    $("#rectops").slideUp('fast');
+    $("#textops").slideUp('fast');
+  }
   $(".font").val(object.get('fontFamily'));
 }
 
 canvas.on('object:selected', function(object){
   object = object.target;
-  textops(object);
+  objectops(object);
 });
 canvas.on('after:render', function() {
   getLayers();
@@ -153,4 +221,5 @@ canvas.on('selection:cleared',function(){
 
 addText("hello");
 addImage("challenge.jpg");
+addRect();
 getLayers();

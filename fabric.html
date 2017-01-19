@@ -11,6 +11,7 @@
       <button type="button" id="addimg">Add Image</button><br/>
       <input type="text" id="texttoadd">
       <button type="button" id="addtext" name="button">Add Text</button><br>
+      <button type="button" id="addrect">Add Rectangle</button>
     </div>
     <div id="textops" style="display:none; border: 1px dashed #000">
       Text Edit Section: <br>
@@ -32,11 +33,16 @@
       &nbsp;
       Background Colour: <input type="text" class="color allowempty" name="updateback"/>
     </div>
-
+    <div id="rectops" style="display:none; border: 1px dashed #000">
+      Rectangle Edit Section: <br>
+      Fill: <input type="text" class="color" name="updatefill"/>
+      &nbsp;
+      Outline Colour: <input type="text" class="color allowempty" name="updatestroke"/>
+    </div>
     <section style="position: absolute; top:0; right: 0; display: inline-block;">
       Instructions:<br>
       <ul>
-        <li>Add Text or Images.</li>
+        <li>Add Text or Images or Rectangle.</li>
         <li>Click on any object(text/image)<br>to show resize/rotate controls.</li>
         <li>Click on a text to edit its properties.</li>
         <li>While editing text, keyboard shortcuts<br>like ctrl+b, ctrl+i, ctrl+delete/backspace<br>ctrl+u can be used</li>
@@ -50,6 +56,7 @@
   </body>
   <script src="js/jquery.min.js" charset="utf-8"></script>
   <script src="js/fabric-custom.min.js" charset="utf-8"></script>
+  <script src="js/fabric.removeColor.js" charset="utf-8"></script>
   <script src="js/spectrum.js" charset="utf-8"></script>
   <script src="js/fabric.js" charset="utf-8"></script>
 </html>
