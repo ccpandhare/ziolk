@@ -39,7 +39,7 @@ function addRect() {
   var rect = new fabric.Rect({
     left: 100,
     top: 100,
-    fill: 'red',
+    fill: 'rgb(19,149,26)',
     width: 50,
     height: 30
   });
@@ -66,7 +66,7 @@ function getLayers() {
     var value;
     if (object.type == "i-text") value = object.text;
     else value = "";
-    layers += "<li><span onclick=\"layerOps("+index+")\">" + index + " - " + object.type + " - " + value + "</span>&nbsp;<span onclick=\"moveFront("+index+")\">(Front)</span>&nbsp;<span onclick=\"moveBack("+index+")\">(Back)</span></li>\n";
+    layers += "<li><span onclick=\"layerOps("+index+")\">" + index + " - " + object.type + " - " + value + "</span>&nbsp;<span onclick=\"moveFront("+index+")\">(Front)</span>&nbsp;<span onclick=\"moveBack("+index+")\">(Back)</span>&nbsp;<span onclick=\"toggleVisible("+index+",'set')\">("+toggleVisible(index,'get')+")</span></li>\n";
   }
   $("#layers").html(layers);
 }
@@ -81,6 +81,23 @@ function moveBack(index) {
   canvas.getObjects()[index].sendBackwards();
   canvas.discardActiveObject();
   canvas.renderAll();
+}
+
+function toggleVisible(index,method) {
+  if (method == "get") {
+      console.log("get");
+    if (canvas.getObjects()[index].visible == true) {
+      return "Hide";
+    }
+    else {
+      return "Show";
+    }
+  }
+  else if (method == "set") {
+    canvas.getObjects()[index].visible = !canvas.getObjects()[index].visible;
+    canvas.discardActiveObject();
+    canvas.renderAll();
+  }
 }
 
 // render the image in our view
@@ -161,7 +178,7 @@ $("input[name='updatetext']").keyup(function(){
 $("#addrect").click(function(){
   addRect()
 });
-$(".color").change(function(){
+$("#textops .color").change(function(){
   var active = canvas.getActiveObject();
   if (active.type == 'i-text') {
     active.set('backgroundColor',$("#textops input[name='updateback']").val());
@@ -170,19 +187,32 @@ $(".color").change(function(){
     canvas.renderAll();
   }
 });
-$("#rectops input[name='updatefill']").change(function(){
+$("#rectops .color").change(function(){
   var active = canvas.getActiveObject();
   if (active.type == 'rect') {
     active.set('fill',$("#rectops input[name='updatefill']").val());
-    //active.set('stroke',$("#textops input[name='updatestroke']").val());
+    active.set('stroke',$("#rectops input[name='updatestroke']").val());
+    canvas.renderAll();
+  }
+});
+$("#rectops input[name='updatestrokewidth']").change(function(){
+  var active = canvas.getActiveObject();
+  if (active.type == 'rect') {
+    active.set('strokeWidth',$("#rectops input[name='updatestrokewidth']").val());
+    active.setCoords();
     canvas.renderAll();
   }
 });
 $(document).keyup(function(e){
-  if (e.which == 8 && (e.ctrlKey || e.metaKey)) $(".remove").trigger("click");
-  if (e.which == 66 && (e.ctrlKey || e.metaKey)) $(".bold").trigger("click");
-  if (e.which == 73 && (e.ctrlKey || e.metaKey)) $(".italic").trigger("click");
-  if (e.which == 85 && (e.ctrlKey || e.metaKey)) $(".textDecoration").trigger("click");
+  if (e.which==8) {
+    if (canvas.getActiveObject().type != 'i-text')
+      $(".remove").trigger("click");
+    else if (!($("#textops input[name='updatetext']").is(":focus")))
+      $(".remove").trigger("click");
+  }
+  if (e.which == 66 && e.ctrlKey) $(".bold").trigger("click");
+  if (e.which == 73 && e.ctrlKey) $(".italic").trigger("click");
+  if (e.which == 85 && e.ctrlKey) $(".textDecoration").trigger("click");
 });
 
 function objectops(object) {
@@ -197,8 +227,9 @@ function objectops(object) {
   }
   else if(object.type == "rect") {
     $("#rectops").slideDown('fast');
-    $("#textops input[name='updatestroke']").spectrum("set",object.stroke);
+    $("#rectops input[name='updatestroke']").spectrum("set",object.stroke);
     $("#rectops input[name='updatefill']").spectrum("set",object.fill);
+    $("#rectops input[name='updatestrokewidth']").val(object.strokeWidth);
     $("#textops").slideUp('fast');
   }
   else {
@@ -222,4 +253,5 @@ canvas.on('selection:cleared',function(){
 addText("hello");
 addImage("challenge.jpg");
 addRect();
+canvas.getObjects()[1].strokeWidth = 2;
 getLayers();
