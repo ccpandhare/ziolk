@@ -1,0 +1,265 @@
+* {padding: 0; margin: 0;font-family: sans-serif;}
+aside {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 250px;
+  box-sizing: border-box;
+  z-index: 1;
+  background: rgb(255,255,255);
+}
+aside#leftpanel {
+  left: 0;
+  border-right: 1px solid black;
+}
+aside#order {
+  right: 0;
+  border-left: 1px solid black;
+}
+ul#ops, ul#layers {
+  display: block;
+  width: 200px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+ul#ops li, ul#layers li {
+  display: block;
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  padding: 10px 15px;
+  transition: all 0.05s;
+}
+ul li:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+ul li:last-of-type {
+  border-radius: 0 0 10px 10px;
+}
+ul#ops li:hover {
+  cursor: pointer;
+  background: green;
+}
+ul li.selected {
+  background: blue;
+}
+ul li > span {
+  display: flex;
+  height: 100%;
+  width: 30px;
+  float: left;
+  align-items: center;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid black;
+}
+ul li:hover span {
+  cursor: pointer;
+}
+ul li > label {
+  display: flex;
+  height: 100%;
+  width: calc(100% - 30px);
+  float: left;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 13px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid black;
+}
+ul li:hover label {
+  color: white;
+  cursor: pointer;
+}
+ul li > article {
+  display: none;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  margin-top: calc(-150px + 15px);
+  margin-left: 45px;
+  background: white;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 7px;
+  box-shadow: 0 0 10px #eee;
+  cursor: default;
+}
+ul li > article::before {
+  width: 30px;
+  height: 30px;
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 135px;
+  box-sizing: border-box;
+  border-right: 15px solid white;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+ul li .close {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background: #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+ul li .close:hover {
+  background: #666;
+}
+ul#layers > span {
+  height: 10px;
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+ul#layers li {
+  display: block;
+  cursor: default !important;
+}
+ul#layers label {
+  width: calc(100% - 60px);
+  cursor: default;
+}
+ul#layers li .movelayer {
+    width: 30px;
+    height: 100%;
+    float: left;
+    display: block;
+    box-sizing: border-box;
+    background: transparent;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+}
+ul#layers .up {
+  display: block;
+  float: left;
+  clear: both;
+  right: 0;
+  width: 30px;
+  height: 10px;
+  background: #aaa;
+  border-radius: 4px;
+}
+ul#layers .down {
+  display: block;
+  float: left;
+  clear: both;
+  right: 0;
+  width: 30px;
+  height: 10px;
+  background: #aaa;
+  border-radius: 4px;
+}
+
+section#main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #aaa;
+  width: 100%;
+  height: 100%;
+}
+#front, #back, #left, #right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dotted black;
+  background: white;
+}
+
+.nodisplay {
+  display: none !important;
+}
+
+#front, #back, #left, #right {
+  width: 350px;
+  height: 500px;
+}
+
+#canvasfront, #canvasback {
+  margin-top: 100px;
+  border: 1px dashed black;
+}
+#canvasleft, #canvasright {
+  margin-top: 0px;
+  border: 1px dashed black;
+}
+
+#front label, #back label, #left label, #right label {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  margin-left: -25px;
+  height: 100px;
+  width: 250px;
+  text-align: center;
+}
+
+#left label, #right label {
+  margin-left: -50px;
+}
+
+footer {
+  display: flex;
+  position: absolute;
+  height: 100px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: white;
+  border: 1px solid black;
+}
+
+ul#side {
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+ul#side li {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  border-right: 1px dashed #888;
+  transition: background 0.5s;
+}
+ul#side li:first-of-type {
+  border-radius: 7px 0 0 7px;
+}
+ul#side li:last-of-type {
+  border-radius: 0 7px 7px 0;
+  border-right: 0;
+}
+ul#side li:hover {
+  background: #aaa;
+  cursor: pointer;
+}
+ul#side li.active {
+  background: #222;
+  color: #fff;
+}

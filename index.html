@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="company" content="Ziolk">
+    <meta name="description" content="Ziolk is a ...">
+    <meta name="author" content="Chinmay Pandhare, CCD Pandhare">
+    <link rel="stylesheet" href="css/master.css">
+    <title>Ziolk | Create</title>
+  </head>
+  <body>
+    <aside id="leftpanel">
+      <div>
+        <ul id="ops">
+          <li>
+            <span></span>
+            <label>PRODUCT</label>
+            <article>
+              <div class="close"></div>
+            </article>
+          </li>
+          <li>
+            <span></span>
+            <label>COLOUR</label>
+            <article>
+              <div class="close"></div>
+            </article>
+          </li>
+          <li>
+            <span></span>
+            <label>ADD IMAGE</label>
+            <article>
+              <div class="close"></div>
+            </article>
+          </li>
+          <li>
+            <span></span>
+            <label>ADD TEXT</label>
+            <article>
+              <div class="close"></div>
+            </article>
+          </li>
+          <li>
+            <span></span>
+            <label>ADD SHAPE</label>
+            <article>
+              <div class="close"></div>
+            </article>
+          </li>
+          <li>
+            <span></span>
+            <label>NAME & NUMBER</label>
+            <article>
+              <div class="close"></div>
+            </article>
+          </li>
+        </ul>
+        <ul id="layers" style="margin-top: 50px">
+          <span>
+            Layers
+          </span>
+          <li>
+            <span></span>
+            <label></label>
+            <div class="movelayer">
+              <a href="#" class="up"></a>
+              <a href="#" class="down"></a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <section id="main">
+      <div id="front" style="display: none">
+        <label>[FRONT SIDE]<br>[T-Shirt Image here.]<br>[The inner box is the canvas.]</label>
+        <canvas id="canvasfront" width="200" height="300"></canvas>
+      </div>
+      <div id="back" style="display: none">
+        <label>[BACK SIDE]<br>[T-Shirt Image here.]<br>[The inner box is the canvas.]</label>
+        <canvas id="canvasback" width="200" height="300"></canvas>
+      </div>
+      <div id="left" style="display: none">
+        <label>[LEFT SIDE]<br>[T-Shirt Image here.]<br>[The inner box is the canvas.]</label>
+        <canvas id="canvasleft" width="150" height="150"></canvas>
+      </div>
+      <div id="right" style="display: none">
+        <label>[RIGHT SIDE]<br>[T-Shirt Image here.]<br>[The inner box is the canvas.]</label>
+        <canvas id="canvasright" width="150" height="150"></canvas>
+      </div>
+    </section>
+    <aside id="order">
+    </aside>
+    <footer>
+      <ul id="side">
+        <li class="sideselector" side="front">F</li>
+        <li class="sideselector" side="back">B</li>
+        <li class="sideselector" side="left">L</li>
+        <li class="sideselector" side="right">R</li>
+      </ul>
+    </footer>
+  </body>
+  <script src="js/jquery.min.js" charset="utf-8"></script>
+  <script src="js/master.js" charset="utf-8"></script>
+</html>
