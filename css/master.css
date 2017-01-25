@@ -73,20 +73,20 @@ ul li > label {
   background: transparent;
   border: 1px solid black;
 }
-ul li:hover label {
+ul#ops li:hover label {
   color: white;
   cursor: pointer;
 }
 ul li > article {
   display: none;
   width: 300px;
-  height: 300px;
+  height: auto;
   position: absolute;
   margin-top: calc(-150px + 15px);
   margin-left: 45px;
   background: white;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #eee;
   border-radius: 7px;
   box-shadow: 0 0 10px #eee;
@@ -142,26 +142,17 @@ ul#layers li .movelayer {
     box-sizing: border-box;
     background: transparent;
     border: 1px solid black;
-    display: flex;
-    justify-content: center;
+    //display: flex;
+    //justify-content: center;
 }
-ul#layers .up {
+ul#layers .movelayer a {
   display: block;
   float: left;
   clear: both;
-  right: 0;
-  width: 30px;
-  height: 10px;
-  background: #aaa;
-  border-radius: 4px;
-}
-ul#layers .down {
-  display: block;
-  float: left;
-  clear: both;
-  right: 0;
-  width: 30px;
-  height: 10px;
+  height: 12px;
+  margin-top: 1px;
+  width: 28px;
+  top:0;
   background: #aaa;
   border-radius: 4px;
 }
@@ -195,7 +186,7 @@ section#main {
 }
 
 #canvasfront, #canvasback {
-  margin-top: 100px;
+  //margin-top: 100px;
   border: 1px dashed black;
 }
 #canvasleft, #canvasright {
@@ -262,4 +253,52 @@ ul#side li:hover {
 ul#side li.active {
   background: #222;
   color: #fff;
+}
+
+.canvas-container {
+  display: block !important;
+}
+
+li article span {
+  display: block;
+  font-size: 125%;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+li article span:nth-of-type(2) {
+  margin-top: 20px;
+}
+
+.inputline {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.inputline pre {
+  display: inline-block;
+  height: 30px;
+  font-size: 14px;
+  line-height: 30px;
+}
+.inputline button {
+  background: #ddd;
+  border: 0;
+  color: #111;
+  padding: 10px 20px;
+}
+.inputline select {
+  background: #ddd;
+  border: 0;
+  color: #111;
+  text-align: center !important;
+  height: 30px !important;
+}
+.inputline button:hover {
+  cursor: pointer;
+}
+.inputline button.active {
+  background: #333;
+  color: #eee;
 }

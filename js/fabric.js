@@ -127,7 +127,6 @@ $("#addimg").click(function() {
     alert("Please Select one or more files");
     $("#imgtoadd").trigger("click");
   }
-
 });
 $("#addtext").click(function(){
   addText($("#texttoadd").val());
@@ -169,7 +168,8 @@ $("input[name='updatetext']").keyup(function(){
   canvas.getActiveObject().text = $("input[name='updatetext']").val();
   canvas.renderAll();
   }
-});$("input[name='updatetext']").change(function(){
+});
+$("input[name='updatetext']").change(function(){
   if ($("input[name='updatetext']").val().trim() != "") {
   canvas.getActiveObject().text = $("input[name='updatetext']").val();
   canvas.renderAll();
