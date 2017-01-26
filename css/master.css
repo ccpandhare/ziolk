@@ -79,7 +79,7 @@ ul#ops li:hover label {
 }
 ul li > article {
   display: none;
-  width: 300px;
+  width: auto;
   height: auto;
   position: absolute;
   margin-top: calc(-150px + 15px);
@@ -134,27 +134,29 @@ ul#layers label {
   width: calc(100% - 60px);
   cursor: default;
 }
-ul#layers li .movelayer {
+.movelayer {
     width: 30px;
     height: 100%;
     float: left;
-    display: block;
+    //display: block;
     box-sizing: border-box;
     background: transparent;
     border: 1px solid black;
-    //display: flex;
-    //justify-content: center;
+    display: flex;
+    justify-content: center;
 }
-ul#layers .movelayer a {
-  display: block;
-  float: left;
+a.up, a.down {
+  display: inline-block;
   clear: both;
-  height: 12px;
-  margin-top: 1px;
-  width: 28px;
-  top:0;
-  background: #aaa;
-  border-radius: 4px;
+  position: absolute;
+  margin-top: -5px;
+  font-size: 20px;
+}
+
+a.down {
+  transform: rotate(180deg);
+  margin-top: 15px;
+  margin-left: -1px;
 }
 
 section#main {
@@ -272,6 +274,7 @@ li article span:nth-of-type(2) {
 
 .inputline {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -282,11 +285,18 @@ li article span:nth-of-type(2) {
   font-size: 14px;
   line-height: 30px;
 }
+.inputline input[type="file"] {
+}
+.inputline input[type="text"] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .inputline button {
   background: #ddd;
   border: 0;
   color: #111;
   padding: 10px 20px;
+  white-space: nowrap;
 }
 .inputline select {
   background: #ddd;

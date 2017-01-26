@@ -99,7 +99,7 @@ License: MIT
     height: 8px;
 }
 .sp-alpha-inner {
-    //border: solid 1px #333;
+    border: solid 1px #333;
 }
 
 .sp-clear {
@@ -108,7 +108,6 @@ License: MIT
 
 .sp-clear.sp-clear-display {
     background-position: center;
-    border: 1px solid black;
 }
 
 .sp-clear-enabled .sp-clear {
@@ -256,8 +255,8 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 
 .sp-container {
     border-radius: 0;
-    background-color: #ddd;
-    //border: solid 1px #f0c49B;
+    background-color: #ECECEC;
+    border: solid 1px #f0c49B;
     padding: 0;
 }
 .sp-container, .sp-container button, .sp-container input, .sp-color, .sp-hue, .sp-clear {
@@ -271,7 +270,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     margin-bottom: 3px;
 }
 .sp-color, .sp-hue, .sp-clear {
-    //border: solid 1px #666;
+    border: solid 1px #666;
 }
 
 /* Input */
@@ -309,7 +308,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 .sp-picker-container {
     width: 172px;
-    //border-left: solid 1px #fff;
+    border-left: solid 1px #fff;
 }
 
 /* Palettes */
@@ -371,14 +370,13 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     display:inline-block;
     *zoom: 1;
     *display: inline;
-    //border: solid 1px #91765d;
-    background: #ddd;
-    color: #111;
+    border: solid 1px #91765d;
+    background: #eee;
+    color: #333;
     vertical-align: middle;
 }
 .sp-replacer:hover, .sp-replacer.sp-active {
-    //border-color: #F0C49B;
-    background: #bbb;
+    border-color: #F0C49B;
     color: #111;
 }
 .sp-replacer.sp-disabled {
@@ -397,7 +395,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     position:relative;
     width:25px;
     height: 20px;
-    //border: solid 1px #222;
+    border: solid 1px #222;
     margin-right: 5px;
     float:left;
     z-index: 0;

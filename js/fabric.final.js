@@ -10,6 +10,8 @@ var canvasback = new fabric.Canvas('canvasback', {preserveObjectStacking: true})
 var canvasleft = new fabric.Canvas('canvasleft', {preserveObjectStacking: true});
 var canvasright = new fabric.Canvas('canvasright', {preserveObjectStacking: true});
 
+var canvasses = [canvasfront, canvasback, canvasleft, canvasright];
+
 document.activecanvas = canvasfront;
 console.log(document.activecanvas.getObjects());
 
@@ -65,8 +67,8 @@ console.log(document.activecanvas.getObjects());
       layers += "<span onclick=\"toggleVisible("+index+",'get')\"></span>";
       layers += "<label>" + object.type + " - " + value + "</label>";
       layers += "<div class=\"moveLayer\">";
-      layers +=   "<a class=\"up\" href=\"#\" onclick=\"moveFront("+index+")\"></a>";
-      layers +=   "<a class=\"down\" onclick=\"moveBack("+index+")\"></a>";
+      layers +=   "<a class=\"down\" onclick=\"moveBack("+index+")\">&#9652;</a>";
+      layers +=   "<a class=\"up\" onclick=\"moveFront("+index+")\">&#9652;</a>";
       layers += "</div>\n";
     }
     $("#layers").html("<span>Layers on this side:</span>"+layers);
@@ -247,6 +249,9 @@ console.log(document.activecanvas.getObjects());
     if (e.which == 85 && e.ctrlKey) $(".textDecoration").trigger("click");
   });
   //select operations
+
+//canvas listeners
+  //front
   canvasfront.on('object:selected', function(object){
     object = object.target;
     objectops(object);
@@ -255,7 +260,40 @@ console.log(document.activecanvas.getObjects());
     getLayers();
   });
   canvasfront.on('selection:cleared',function(){
-
+    $("ul#ops li article").slideUp('fast');
+  });
+  //back
+  canvasback.on('object:selected', function(object){
+    object = object.target;
+    objectops(object);
+  });
+  canvasback.on('after:render', function() {
+    getLayers();
+  });
+  canvasback.on('selection:cleared',function(){
+    $("ul#ops li article").slideUp('fast');
+  });
+  //left
+  canvasleft.on('object:selected', function(object){
+    object = object.target;
+    objectops(object);
+  });
+  canvasleft.on('after:render', function() {
+    getLayers();
+  });
+  canvasleft.on('selection:cleared',function(){
+    $("ul#ops li article").slideUp('fast');
+  });
+  //right
+  canvasright.on('object:selected', function(object){
+    object = object.target;
+    objectops(object);
+  });
+  canvasright.on('after:render', function() {
+    getLayers();
+  });
+  canvasright.on('selection:cleared',function(){
+    $("ul#ops li article").slideUp('fast');
   });
 
   addRect();
