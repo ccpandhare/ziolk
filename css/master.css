@@ -132,7 +132,7 @@ ul#layers li {
 }
 ul#layers label {
   width: calc(100% - 60px);
-  cursor: default;
+  cursor: pointer;
 }
 .movelayer {
     width: 30px;

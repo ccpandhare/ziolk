@@ -39,6 +39,8 @@
               </div>
               <span>This Image:</span>
               <div class="inputline">
+                <button type="button" class="flipX">flip horizontal</button>
+                <button type="button" class="flipY">flip vertical</button>
                 <button type="button" class="remove">Remove</button>
               </div>
             </article>
@@ -57,6 +59,10 @@
                 <button type="button" class="italic ">I</button>
                 <button type="button" class="textDecoration ">U</button>
                 <button type="button" class="remove">Remove</button>
+              </div>
+              <div class="inputline">
+                <button type="button" class="flipX">flip horizontal</button>
+                <button type="button" class="flipY">flip vertical</button>
               </div>
               <div class="inputline">
                 <pre>Font Family: </pre>
@@ -80,11 +86,30 @@
               </div>
             </article>
           </li>
-          <li>
+          <li id="shapeops">
             <span></span>
-            <label>ADD SHAPE</label>
+            <label>SHAPE</label>
             <article>
               <div class="close"></div>
+              <span>Add Shape:</span>
+              <div class="inputline">
+                <button type="button" id="addrect">Rectangle</button>
+                &nbsp;
+                <button type="button" id="addellipse">Ellipse</button>
+                &nbsp;
+                <button type="button" id="addcircle">Circle</button>
+              </div>
+              <span>Modify Shape:</span>
+              <div class="inputline">
+                <pre>Fill: </pre><input type="text" class="color" name="updatefill"/>
+              </div>
+              <div class="inputline">
+                <pre>Outline Colour: </pre><input type="text" class="color allowempty" name="updatestroke"/>
+              </div>
+              <div class="inputline">
+                <pre>Outline width: </pre><input type="text" name="updatestrokewidth"/>
+              </div>
+
             </article>
           </li>
           <li>

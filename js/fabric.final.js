@@ -13,12 +13,10 @@ var canvasright = new fabric.Canvas('canvasright', {preserveObjectStacking: true
 var canvasses = [canvasfront, canvasback, canvasleft, canvasright];
 
 document.activecanvas = canvasfront;
-console.log(document.activecanvas.getObjects());
 
 //define functions
   //add a text object
   function addText(text) {
-    console.log(document.activecanvas);
     var oText = new fabric.IText(text, {left: 100, top: 150, editable: false});
     document.activecanvas.add(oText);
     var thisObj = document.activecanvas.getObjects()[document.activecanvas.getObjects().length - 1];
@@ -37,17 +35,40 @@ console.log(document.activecanvas.getObjects());
       thisObj.center();
       thisObj.setCoords();
       document.activecanvas.renderAll();
+      $("ul#ops li article").slideUp('fast');
     });
   }
   //add a rectangle object
   function addRect() {
-    var rect = new fabric.Rect({left: 100, top: 100, fill: 'rgb(19,149,26)', width: 50, height: 30});
+    var rect = new fabric.Rect({left: 100, top: 100, fill: 'rgb(19,149,26)', width: 50, height: 40});
     document.activecanvas.add(rect);
     var thisObj = document.activecanvas.getObjects()[document.activecanvas.getObjects().length - 1];
     document.activecanvas.setActiveObject(thisObj);
     thisObj.center();
     thisObj.setCoords();
     document.activecanvas.renderAll();
+  }
+  //add an elipse object
+  function addEllipse() {
+    var ellipse = new fabric.Ellipse({left: 100, top: 100, fill: 'rgb(19,19,26)', rx: 30, ry: 20, stroke: 'rgb(20,20,02)'});
+    document.activecanvas.add(ellipse);
+    var thisObj = document.activecanvas.getObjects()[document.activecanvas.getObjects().length - 1];
+    document.activecanvas.setActiveObject(thisObj);
+    thisObj.center();
+    thisObj.setCoords();
+    document.activecanvas.renderAll();
+    console.log(thisObj);
+  }
+  //add a circle object
+  function addCircle() {
+    var circle = new fabric.Circle({left: 100, top: 100, fill: 'rgb(19,189,26)', radius: 20, dirty: false});
+    document.activecanvas.add(circle);
+    var thisObj = document.activecanvas.getObjects()[document.activecanvas.getObjects().length - 1];
+    document.activecanvas.setActiveObject(thisObj);
+    thisObj.center();
+    thisObj.setCoords();
+    document.activecanvas.renderAll();
+    console.log(thisObj);
   }
   //sets the active object (see getLayer)
   function layerOps(get) {
@@ -64,8 +85,8 @@ console.log(document.activecanvas.getObjects());
       if (object.type == "i-text") value = object.text;
       else value = "";
       layers += "<li>";
-      layers += "<span onclick=\"toggleVisible("+index+",'get')\"></span>";
-      layers += "<label>" + object.type + " - " + value + "</label>";
+      layers += "<span onclick=\"toggleVisible("+index+",'set')\">"+toggleVisible(index,'get')+"</span>";
+      layers += "<label onclick=\"layerOps("+index+")\">" + object.type + " - " + value + "</label>";
       layers += "<div class=\"moveLayer\">";
       layers +=   "<a class=\"down\" onclick=\"moveBack("+index+")\">&#9652;</a>";
       layers +=   "<a class=\"up\" onclick=\"moveFront("+index+")\">&#9652;</a>";
@@ -88,12 +109,11 @@ console.log(document.activecanvas.getObjects());
   //toggles visibility of object
   function toggleVisible(index,method) {
     if (method == "get") {
-        console.log("get");
       if (document.activecanvas.getObjects()[index].visible == true) {
-        return "Hide";
+        return "&#128065;";
       }
       else {
-        return "Show";
+        return "";
       }
     }
     else if (method == "set") {
@@ -102,6 +122,13 @@ console.log(document.activecanvas.getObjects());
       document.activecanvas.renderAll();
     }
   }
+  //gets the textformatting
+  function getTextFormatting(object, element, type) {
+    console.log(object.get(type));
+    if(object.get(type) == "normal" || object.get(type) == "none") element.removeClass('active');
+    else element.addClass('active');
+  }
+
   //render image from select
   function renderImage(file) {
     var reader = new FileReader();
@@ -121,14 +148,35 @@ console.log(document.activecanvas.getObjects());
       $("#textops article input[name='updatestroke']").spectrum("set",object.stroke);
       $("#textops article input[name='updateback']").spectrum("set",object.backgroundColor);
     }
-    else if(object.type == "recto") {
-      $("#rectops").trigger('click');
-      $("#rectops article input[name='updatestroke']").spectrum("set",object.stroke);
-      $("#rectops article input[name='updatefill']").spectrum("set",object.fill);
-      $("#rectops article input[name='updatestrokewidth']").val(object.strokeWidth);
+    else if(object.type == "circle" || object.type == "rect" || object.type == "ellipse") {
+      $("#shapeops").trigger('click');
+      $("#shapeops article input[name='updatestroke']").spectrum("set",object.stroke);
+      $("#shapeops article input[name='updatefill']").spectrum("set",object.fill);
+      $("#shapeops article input[name='updatestrokewidth']").val(object.strokeWidth);
+      console.log(object.type);
+      console.log(object.stroke);
+      console.log(object.strokeWidth);
     }
     $(".font").val(object.get('fontFamily'));
   }
+  //horizontal&vertical flip
+  function flipObject(object, element, type) {
+    if(object.get(type)) {
+      object.set(type,false);
+      element.removeClass('active');
+    }
+    else {
+      object.set(type,true);
+      element.addClass('active');
+    }
+    document.activecanvas.renderAll();
+  }
+  $(".flipX").click(function(){
+    flipObject(document.activecanvas.getActiveObject(),$(this),"flipX");
+  });
+  $(".flipY").click(function(){
+    flipObject(document.activecanvas.getActiveObject(),$(this),"flipY");
+  });
 
 //add operations
   //add image
@@ -155,6 +203,14 @@ console.log(document.activecanvas.getObjects());
   $("#addrect").click(function(){
     addRect()
   });
+  //add ellipse
+  $("#addellipse").click(function(){
+    addellipse()
+  });
+  //add circle
+  $("#addcircle").click(function(){
+    addCircle()
+  });
 
 //text operations
   //make active text bold
@@ -162,6 +218,7 @@ console.log(document.activecanvas.getObjects());
     object = document.activecanvas.getActiveObject();
     if (object.get('fontWeight')=='normal') object.set('fontWeight','bold');
     else object.set('fontWeight','normal');
+    getTextFormatting(object,$(this),'fontWeight');
     document.activecanvas.renderAll();
   });
   //make active text italic
@@ -169,6 +226,7 @@ console.log(document.activecanvas.getObjects());
     object = document.activecanvas.getActiveObject();
     if (object.get('fontStyle')=='normal') object.set('fontStyle','italic');
     else object.set('fontStyle','normal');
+    getTextFormatting(object,$(this),'fontStyle');
     document.activecanvas.renderAll();
   });
   //switch text decoration
@@ -179,6 +237,7 @@ console.log(document.activecanvas.getObjects());
     else if (decor == 'line-through') object.set('textDecoration','overline');
     else if (decor == 'overline') object.set('textDecoration','none');
     else object.set('textDecoration','underline');
+    getTextFormatting(object,$(this),'textDecoration');
     document.activecanvas.renderAll();
   });
   //change font
@@ -211,21 +270,21 @@ console.log(document.activecanvas.getObjects());
     }
   });
 
-//rectangle operations
-  //update rectangle color attributes
-  $("#rectops .color").change(function(){
+//shape operations
+  //update shape color attributes
+  $("#shapeops .color").change(function(){
     var active = document.activecanvas.getActiveObject();
-    if (active.type == 'rect') {
-      active.set('fill',$("#rectops article input[name='updatefill']").val());
-      active.set('stroke',$("#rectops article input[name='updatestroke']").val());
+    if (active.type == 'rect' || active.type ==  'ellipse' || active.type ==  'circle') {
+      active.set('fill',$("#shapeops article input[name='updatefill']").val());
+      active.set('stroke',$("#shapeops article input[name='updatestroke']").val());
       document.activecanvas.renderAll();
     }
   });
-  //update rectangle stroke width
-  $("#rectops input[name='updatestrokewidth']").change(function(){
+  //update shape stroke width
+  $("#shapeops input[name='updatestrokewidth']").change(function(){
     var active = document.activecanvas.getActiveObject();
-    if (active.type == 'rect') {
-      active.set('strokeWidth',$("#rectops article input[name='updatestrokewidth']").val());
+    if (active.type == 'rect' || active.type == 'ellipse' || active.type == 'circle') {
+      active.set('strokeWidth',eval($("#shapeops article input[name='updatestrokewidth']").val()));
       active.setCoords();
       document.activecanvas.renderAll();
     }
@@ -239,9 +298,7 @@ console.log(document.activecanvas.getObjects());
   //keys
   $(document).keyup(function(e){
     if (e.which==8) {
-      if (document.activecanvas.getActiveObject().type != 'i-text')
-        $(".remove").trigger("click");
-      else if (!($("input").is(":focus")))
+      if (!($("input").is(":focus")))
         $(".remove").trigger("click");
     }
     if (e.which == 66 && e.ctrlKey) $(".bold").trigger("click");
@@ -261,6 +318,7 @@ console.log(document.activecanvas.getObjects());
   });
   canvasfront.on('selection:cleared',function(){
     $("ul#ops li article").slideUp('fast');
+    $("ul#ops li.selected").removeClass('selected');
   });
   //back
   canvasback.on('object:selected', function(object){
@@ -272,6 +330,7 @@ console.log(document.activecanvas.getObjects());
   });
   canvasback.on('selection:cleared',function(){
     $("ul#ops li article").slideUp('fast');
+    $("ul#ops li.selected").removeClass('selected');
   });
   //left
   canvasleft.on('object:selected', function(object){
@@ -283,6 +342,7 @@ console.log(document.activecanvas.getObjects());
   });
   canvasleft.on('selection:cleared',function(){
     $("ul#ops li article").slideUp('fast');
+    $("ul#ops li.selected").removeClass('selected');
   });
   //right
   canvasright.on('object:selected', function(object){
@@ -294,8 +354,10 @@ console.log(document.activecanvas.getObjects());
   });
   canvasright.on('selection:cleared',function(){
     $("ul#ops li article").slideUp('fast');
+    $("ul#ops li.selected").removeClass('selected');
   });
 
   addRect();
-  addText("hey");
-  addRect();
+  addEllipse();
+  addCircle();
+    addText("hey");
