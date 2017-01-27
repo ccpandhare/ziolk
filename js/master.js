@@ -32,3 +32,7 @@ $(".color").spectrum({
     showAlpha: true,
     allowEmpty: true
 });
+$('.exportfront').click(function(){
+  var trsvg = document.activecanvas.toSVG();
+  $('body').html(trsvg);
+});

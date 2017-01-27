@@ -84,7 +84,11 @@ document.activecanvas = canvasfront;
       var value;
       if (object.type == "i-text") value = object.text;
       else value = "";
-      layers += "<li>";
+      if (object == document.activecanvas.getActiveObject())
+        var li = "<li class=\"active\">"
+      else
+        var li = "<li>"
+      layers += li;
       layers += "<span onclick=\"toggleVisible("+index+",'set')\">"+toggleVisible(index,'get')+"</span>";
       layers += "<label onclick=\"layerOps("+index+")\">" + object.type + " - " + value + "</label>";
       layers += "<div class=\"moveLayer\">";
