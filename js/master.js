@@ -43,9 +43,13 @@ $('.exportfront').click(function(){
   databack = document.getElementById("canvasback").toDataURL("image/png");
   dataright = document.getElementById("canvasleft").toDataURL("image/png");
   dataleft = document.getElementById("canvasright").toDataURL("image/png");
+  scaleCanvas(canvasfront,1/(1.2));
+  scaleCanvas(canvasback,1/(1.2));
+  scaleCanvas(canvasleft,1/(1.2));
+  scaleCanvas(canvasright,1/(1.2));
   canvasfront.renderAll();
   canvasback.renderAll();
   canvasleft.renderAll();
   canvasright.renderAll();
-  //document.write(img);
+  alert("data has been exported. It lives in the JavaScript as of now")
 });
