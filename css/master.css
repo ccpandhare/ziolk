@@ -346,3 +346,6 @@ li article span:nth-of-type(2) {
   background: #333;
   color: #eee;
 }
+canvas[hidden='true'] {
+  display: none;
+}
