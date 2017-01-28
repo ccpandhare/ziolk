@@ -33,15 +33,19 @@ $(".color").spectrum({
     allowEmpty: true
 });
 $('.exportfront').click(function(){
-  canvasses = [canvasfront, canvasback, canvasleft, canvasright];
   var img = "";
-  for (var i in canvasses) {
-    scaleCanvas(canvasses[i],1.2);
-    var data = document.getElementById("canvasfront").toDataURL("image/png");
-    img +=
-  }
+
+  scaleCanvas(canvasfront,1.2);
+  scaleCanvas(canvasback,1.2);
+  scaleCanvas(canvasleft,1.2);
+  scaleCanvas(canvasright,1.2);
+  datafront = document.getElementById("canvasfront").toDataURL("image/png");
+  databack = document.getElementById("canvasback").toDataURL("image/png");
+  dataright = document.getElementById("canvasleft").toDataURL("image/png");
+  dataleft = document.getElementById("canvasright").toDataURL("image/png");
   canvasfront.renderAll();
-  var img = document.getElementById("canvasfront").toDataURL("image/png");
-  //console.log(img);
-  //document.write("<img src=\""+img+"\">");
+  canvasback.renderAll();
+  canvasleft.renderAll();
+  canvasright.renderAll();
+  //document.write(img);
 });
