@@ -9,7 +9,7 @@ aside {
   width: 250px;
   box-sizing: border-box;
   z-index: 1;
-  background: rgb(255,255,255);
+  //background: rgb(255,255,255);
 }
 aside#leftpanel {
   left: 0;
@@ -24,26 +24,26 @@ ul#ops, ul#layers, ul#cost {
   width: 200px;
   box-sizing: border-box;
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 ul#ops li, ul#layers li {
   display: block;
   width: 100%;
   height: 50px;
   box-sizing: border-box;
-  border: 1px solid black;
   padding: 10px 15px;
-  transition: all 0.05s;
+  transition: background 0.3s;
+  background: #D1F5FF;
 }
 ul li:first-of-type {
-  border-radius: 10px 10px 0 0;
+  border-radius: 7px 7px 0 0;
 }
 ul li:last-of-type {
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 7px 7px;
 }
 ul#ops li:hover {
   cursor: pointer;
-  background: green;
+  background: #736CED;
 }
 ul li.selected {
   background: blue;
@@ -139,12 +139,14 @@ ul#layers label {
 }
 ul#cost li {
   height: auto;
-  width: 100%;
+  width: calc(100%-10px);
   border: 1px solid black;
   display: flex;
-
+  padding: 15px 5px;
+  background: #D1F5FF;
 }
-ul#cost li label {
+ul#cost label {
+  padding: 5px 15px;
   width: 100%;
   display: block;
 }
@@ -162,14 +164,14 @@ ul#cost .qtynumber {
   width: 35px;
 }
 ul#cost .qtynumber input {
-  width: 30px !important;
-  height: 30px !important;
+  width: 20px !important;
+  height: 20px !important;
   margin: 0;
   padding: 0;
   text-align: center;
 }
 .movelayer {
-    width: 30px;
+    width: 20px;
     height: 100%;
     float: left;
     //display: block;
@@ -185,6 +187,8 @@ a.up, a.down {
   position: absolute;
   margin-top: -5px;
   font-size: 20px;
+  border: 1px solid black;
+  height: 15px;
 }
 
 a.down {
@@ -200,7 +204,7 @@ section#main {
   position: absolute;
   left: 0;
   top: 0;
-  background: #aaa;
+  background: #EEF8FF;
   width: 100%;
   height: 100%;
 }
@@ -254,9 +258,9 @@ footer {
   bottom: 0;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  background: white;
-  border: 1px solid black;
+  //box-sizing: border-box;
+  //background: white;
+  //border: 1px solid black;
 }
 
 ul#side {
