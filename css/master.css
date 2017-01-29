@@ -29,7 +29,7 @@ ul#ops, ul#layers, ul#cost {
 ul#ops li, ul#layers li {
   display: block;
   width: 100%;
-  height: 50px;
+  height: 40px;
   box-sizing: border-box;
   padding: 10px 15px;
   transition: background 0.3s;
@@ -54,6 +54,7 @@ ul li > span {
   width: 30px;
   float: left;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   background: transparent;
   border: 1px solid black;
@@ -91,6 +92,7 @@ ul li > article {
   border-radius: 7px;
   box-shadow: 0 0 10px #eee;
   cursor: default;
+  z-index: 3;
 }
 ul li > article::before {
   width: 30px;
@@ -249,13 +251,12 @@ section#main {
   margin-left: -50px;
 }
 
-footer {
+footer, header {
   display: flex;
   position: absolute;
   height: 100px;
   width: 100%;
   left: 0;
-  bottom: 0;
   align-items: center;
   justify-content: center;
   //box-sizing: border-box;
@@ -263,34 +264,42 @@ footer {
   //border: 1px solid black;
 }
 
-ul#side {
-  height: 50px;
+header {
+  top: 0;
+  z-index: 2;
+}
+footer {
+  bottom: 0;
+}
+
+ul#side, ul#top {
+  height: 40px;
   border: 1px solid black;
   border-radius: 7px;
 }
-ul#side li {
+ul#side li, ul#top li {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   float: left;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   box-sizing: border-box;
   border-right: 1px dashed #888;
   transition: background 0.5s;
 }
-ul#side li:first-of-type {
+ul#side li:first-of-type, ul#top li:first-of-type {
   border-radius: 7px 0 0 7px;
 }
-ul#side li:last-of-type {
+ul#side li:last-of-type, ul#top li:last-of-type {
   border-radius: 0 7px 7px 0;
   border-right: 0;
 }
-ul#side li:hover {
+ul#side li:hover, ul#top li:hover {
   background: #aaa;
   cursor: pointer;
 }
-ul#side li.active {
+ul#side li.active, ul#top li.active {
   background: #222;
   color: #fff;
 }
@@ -352,4 +361,11 @@ li article span:nth-of-type(2) {
 }
 canvas[hidden='true'] {
   display: none;
+}
+span.layercolor {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  box-sizing: border-box;
+  border: 1px solid black;
 }

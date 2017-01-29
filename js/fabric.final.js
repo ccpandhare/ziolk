@@ -79,11 +79,12 @@ document.activecanvas = canvasfront;
     var objects = document.activecanvas.getObjects();
     var layers = "";
     for (var object in objects) {
-      var index = object;
-      object = objects[object];
+      var index = objects.length - object - 1;
+      object = objects[index];
       var value;
       if (object.type == "i-text") value = object.text;
-      else value = "";
+      else if (object.type == "image") value = object.width + " x " + object.height;
+      else value = "&nbsp;<span class=\"layercolor\" style=\"background: "+object.fill+"; border: 3px solid "+(object.stroke || "transparent")+"\"></span>";
       if (object == document.activecanvas.getActiveObject())
         var li = "<li class=\"active\">"
       else

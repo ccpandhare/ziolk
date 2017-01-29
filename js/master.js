@@ -32,9 +32,8 @@ $(".color").spectrum({
     showAlpha: true,
     allowEmpty: true
 });
-$('.exportfront').click(function(){
+$('.export').click(function(){
   var img = "";
-
   scaleCanvas(canvasfront,1.2);
   scaleCanvas(canvasback,1.2);
   scaleCanvas(canvasleft,1.2);
@@ -51,5 +50,5 @@ $('.exportfront').click(function(){
   canvasback.renderAll();
   canvasleft.renderAll();
   canvasright.renderAll();
-  alert("data has been exported. It lives in the JavaScript as of now")
+  alert("data has been exported. It lives in the JavaScript as of now");
 });
