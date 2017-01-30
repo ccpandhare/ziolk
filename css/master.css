@@ -57,6 +57,9 @@ ul li > span {
   justify-content: center;
   box-sizing: border-box;
   background: transparent;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   border: 1px solid black;
 }
 ul li:hover span {
