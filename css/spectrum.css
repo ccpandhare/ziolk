@@ -289,7 +289,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
    padding: 4px 5px;
    margin: 0;
    width: 100%;
-   background:transparent;
+   background: #fff;
    border-radius: 3px;
    color: #222;
 }

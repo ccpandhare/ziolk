@@ -1,8 +1,12 @@
-$("ul#ops li").click(function(){
+$("ul#ops li").not(".selected").click(function(){
   $("ul#ops li").removeClass("selected");
   $(this).addClass("selected");
   $("li article").slideUp('fast');
   $(this).children("article").slideDown('fast');
+});
+$("ul#ops li.selected").click(function(){
+  $("ul#ops li").removeClass("selected");
+  $("li article").slideUp('fast');
 });
 $("ul#ops li .close").click(function(e){
   e.stopPropagation();
@@ -31,6 +35,15 @@ $(".color").spectrum({
     showInput: true,
     showAlpha: true,
     allowEmpty: true
+});
+$("#tshirtcolor").spectrum({
+    color: (document.tshirtcolor || "red"),
+    flat: true,
+    showInput: true,
+    preferredFormat: "hex"
+});
+$("#tshirtcolorli").click(function(){
+  $("#tshirtcolor").spectrum("reflow");
 });
 $('.export').click(function(){
   var img = "";

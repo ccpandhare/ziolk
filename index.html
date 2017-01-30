@@ -11,7 +11,7 @@
   </head>
   <body>
     <header>
-      <ul id="top">
+      <ul id="top" style="display:none">
         <li class="topselector">F</li>
         <li class="topselector">B</li>
         <li class="topselector">L</li>
@@ -28,11 +28,14 @@
               <div class="close"></div>
             </article>
           </li>
-          <li>
+          <li id="tshirtcolorli">
             <span style="background-image: url(images/shirt.png)"></span>
             <label>COLOUR</label>
             <article>
               <div class="close"></div>
+              <span>Change the colour of T-Shirt:</span>
+              <pre>(This Changes color of all sides)</pre>
+              <input type="text" id="tshirtcolor" />
             </article>
           </li>
           <li>
@@ -145,7 +148,7 @@
     </aside>
     <section id="main">
       <div id="front" style="display: none">
-        <label>[FRONT SIDE]<br>[T-Shirt Image here.]<br>[The inner box is the canvas.]</label>
+        <!--label>[FRONT SIDE]<br>[T-Shirt Image here.]<br>[The inner box is the canvas.]</label-->
         <canvas id="canvasfront" width="200" height="300"></canvas>
       </div>
       <div id="back" style="display: none">
