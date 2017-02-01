@@ -5,8 +5,9 @@
     <meta name="company" content="Ziolk">
     <meta name="description" content="Ziolk is a ...">
     <meta name="author" content="Chinmay Pandhare, CCD Pandhare">
-    <link rel="stylesheet" href="css/spectrum.css">
+    <link rel="stylesheet" href="css/hex-colorpicker.css">
     <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
     <title>Ziolk | Create</title>
   </head>
   <body>
@@ -48,11 +49,14 @@
                 <input type="file" id="imgtoadd" value="" multiple="" />
                 <button type="button" id="addimg">Add Image</button>
               </div>
+              <div class="formatobject">
               <span>This Image:</span>
               <div class="inputline">
                 <button type="button" class="flipX">flip horizontal</button>
                 <button type="button" class="flipY">flip vertical</button>
                 <button type="button" class="remove">Remove</button>
+                <button type="button" class="removeWhite">Remove White</button>
+              </div>
               </div>
             </article>
           </li>
@@ -64,7 +68,8 @@
               <span>Add Text:</span>
               <input id="texttoadd" />
               <button type="button" id="addtext" name="button">Add Text</button><br>
-              <span>Format Text:</span>
+              <div class="formatobject">
+              <span>This Text:</span>
               <div class="inputline">
                 <button type="button" class="bold active">B</button>
                 <button type="button" class="italic ">I</button>
@@ -95,6 +100,7 @@
               <div class="inputline">
                 <pre>Background Colour: </pre><input type="text" class="color allowempty" name="updateback"/>
               </div>
+              </div>
             </article>
           </li>
           <li id="shapeops">
@@ -110,6 +116,7 @@
                 &nbsp;
                 <button type="button" id="addcircle">Circle</button>
               </div>
+              <div class="formatobject">
               <span>Modify Shape:</span>
               <div class="inputline">
                 <pre>Fill: </pre><input type="text" class="color" name="updatefill"/>
@@ -119,6 +126,7 @@
               </div>
               <div class="inputline">
                 <pre>Outline width: </pre><input type="text" name="updatestrokewidth"/>
+              </div>
               </div>
 
             </article>
@@ -197,6 +205,7 @@
               Total :
             </div>
           </li>
+          <li id="getPixel"></li>
           <li style="padding-top:0; padding-bottom:0;">
             <div class="inputline" style="justify-content: center">
               Amount :
@@ -217,7 +226,8 @@
     <canvas id="exportCanvas" width="400" height="600" style="display: none;"></canvas>
   </body>
   <script src="js/jquery.min.js" charset="utf-8"></script>
-  <script src="js/spectrum.js" charset="utf-8"></script>
+  <script src="js/jquery-ui.min.js" charset="utf-8"></script>
+  <script src="js/hex-colorpicker.min.js" charset="utf-8"></script>
   <script src="js/fabric-custom.min.js" charset="utf-8"></script>
   <script src="js/fabric.final.js" charset="utf-8"></script>
   <script src="js/master.js" charset="utf-8"></script>

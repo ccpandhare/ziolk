@@ -111,15 +111,31 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   //moves object one layer up
   function moveFront(index) {
     document.activecanvas.getObjects()[index].bringForward();
-    document.activecanvas.discardActiveObject();
     document.activecanvas.renderAll();
   }
   //moves object one layer Back
   function moveBack(index) {
     document.activecanvas.getObjects()[index].sendBackwards();
-    document.activecanvas.discardActiveObject();
     document.activecanvas.renderAll();
   }
+  //moves object one unit left
+  function moveLeft(object) {
+    object.left -= 1;
+    document.activecanvas.renderAll();
+  }
+  function moveRight(object) {
+    object.left += 1;
+    document.activecanvas.renderAll();
+  }
+  function moveUp(object) {
+    object.top -= 1;
+    document.activecanvas.renderAll();
+  }
+  function moveDown(object) {
+    object.top += 1;
+    document.activecanvas.renderAll();
+  }
+
   //toggles visibility of object
   function toggleVisible(index,method) {
     if (method == "get") {
@@ -184,20 +200,25 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   function objectops(object) {
     if(object.type == "i-text") {
       $("#textops").trigger('click');
+      $(".formatobject.active").removeClass("active");
+      $("#textops .formatobject").addClass("active");
       $("#textops article input[name='updatetext']").val(object.text);
       $("#textops article input[name='updatestrokewidth']").val(object.strokeWidth);
-      $("#textops article input[name='updatefill']").spectrum("set",object.fill);
-      $("#textops article input[name='updatestroke']").spectrum("set",object.stroke);
-      $("#textops article input[name='updateback']").spectrum("set",object.backgroundColor);
+      $("#textops article input[name='updatefill']").val(object.fill);
+      $("#textops article input[name='updatestroke']").val(object.stroke);
+      $("#textops article input[name='updateback']").val(object.backgroundColor);
     }
     else if(object.type == "circle" || object.type == "rect" || object.type == "ellipse") {
       $("#shapeops").trigger('click');
-      $("#shapeops article input[name='updatestroke']").spectrum("set",object.stroke);
-      $("#shapeops article input[name='updatefill']").spectrum("set",object.fill);
+      $(".formatobject.active").removeClass("active");
+      $("#shapeops .formatobject").addClass("active");
+      $("#shapeops article input[name='updatestroke']").val(object.stroke);
+      $("#shapeops article input[name='updatefill']").val(object.fill);
       $("#shapeops article input[name='updatestrokewidth']").val(object.strokeWidth);
-      console.log(object.type);
-      console.log(object.stroke);
-      console.log(object.strokeWidth);
+    }
+    else {
+      $(".formatobject.active").removeClass("active");
+      $("#imageops .formatobject").addClass("active");
     }
     $(".font").val(object.get('fontFamily'));
   }
@@ -252,17 +273,10 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
 //TShirt operations
   //change TShirt Color
   $("#tshirtcolor").change(function(){
-    document.tshirtcolor = $(this).spectrum("get");
+    document.tshirtcolor = $(this).val();
     $("div#front").css({'background': "url(\""+TShirtSVG("front",document.tshirtcolor)+"\")"});
   });
 
-//Flip operations
-  $(".flipX").click(function(){
-    flipObject(document.activecanvas.getActiveObject(),$(this),"flipX");
-  });
-  $(".flipY").click(function(){
-    flipObject(document.activecanvas.getActiveObject(),$(this),"flipY");
-  });
 //text operations
   //make active text bold
   $(".bold").click(function(){
@@ -341,10 +355,28 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     }
   });
 
+//image operations
+  $(".removeWhite").click(function(){
+    var filter = new fabric.Image.filters.RemoveRed({
+      threshold: 70,
+      distance: 140
+    });
+    var object = document.activecanvas.getActiveObject();
+    object.filters.push(filter);
+    object.applyFilters(document.activecanvas.renderAll.bind(document.activecanvas));
+  });
+
 //generic operations
   //remove
   $(".remove").click(function(){
     object = document.activecanvas.getActiveObject().remove();
+  });
+  //Flip operations
+  $(".flipX").click(function(){
+    flipObject(document.activecanvas.getActiveObject(),$(this),"flipX");
+  });
+  $(".flipY").click(function(){
+    flipObject(document.activecanvas.getActiveObject(),$(this),"flipY");
   });
   //keys
   $(document).keyup(function(e){
@@ -355,6 +387,10 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     if (e.which == 66 && e.ctrlKey) $(".bold").trigger("click");
     if (e.which == 73 && e.ctrlKey) $(".italic").trigger("click");
     if (e.which == 85 && e.ctrlKey) $(".textDecoration").trigger("click");
+    if (e.which == 37) $(moveLeft(document.activecanvas.getActiveObject()));
+    if (e.which == 38) $(moveUp(document.activecanvas.getActiveObject()));
+    if (e.which == 39) $(moveRight(document.activecanvas.getActiveObject()));
+    if (e.which == 40) $(moveDown(document.activecanvas.getActiveObject()));
   });
   //select operations
 
@@ -370,6 +406,11 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   canvasfront.on('selection:cleared',function(){
     $("ul#ops li article").slideUp('fast');
     $("ul#ops li.selected").removeClass('selected');
+  });
+  canvasfront.on('mouse:down',function(options) {
+    X = options.e.offsetX;
+    Y = options.e.offsetY;
+    $("#getPixel").innerHTML(canvasfront.getContext("2d").getImageData(X,Y,1,1).data);
   });
   //back
   canvasback.on('object:selected', function(object){

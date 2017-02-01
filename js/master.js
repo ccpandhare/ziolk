@@ -30,21 +30,16 @@ $("li.sideselector").not(".active").click(function(){
   $("li[side="+side+"]").addClass("active");
 });
 $("li.sideselector[side='front']").trigger('click');
-$(".color").spectrum({
-    preferredFormat: "rgb",
-    showInput: true,
-    showAlpha: true,
-    allowEmpty: true
+$(".color").hexColorPicker({
+    "container":"dialog"
 });
-$("#tshirtcolor").spectrum({
-    color: (document.tshirtcolor || "red"),
-    flat: true,
-    showInput: true,
-    preferredFormat: "hex"
+$("#tshirtcolor").hexColorPicker({
+  "container":"dialog"
 });
-$("#tshirtcolorli").click(function(){
-  $("#tshirtcolor").spectrum("reflow");
+$(function(){
+  $("#tshirtcolor").val("#ff0000");
 });
+
 $('.export').click(function(){
   var img = "";
   scaleCanvas(canvasfront,1.2);
