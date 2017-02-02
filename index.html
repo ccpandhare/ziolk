@@ -49,13 +49,23 @@
                 <input type="file" id="imgtoadd" value="" multiple="" />
                 <button type="button" id="addimg">Add Image</button>
               </div>
-              <div class="formatobject">
+              <div class="formatobjject">
               <span>This Image:</span>
               <div class="inputline">
                 <button type="button" class="flipX">flip horizontal</button>
                 <button type="button" class="flipY">flip vertical</button>
                 <button type="button" class="remove">Remove</button>
-                <button type="button" class="removeWhite">Remove White</button>
+              </div>
+              <span>Remove Background of Image:</span>
+              <pre>Click on the background of image</pre>
+              <div class="inputline">
+                <button type="button" class="removeBackgroundToggle">Remove Background Mode is Off</button>
+              </div>
+              <div class="inputline">
+                <pre>Mode:</pre>
+                <button type="button" class="removeBackgroundStr light">Lite</button>
+                <button type="button" class="removeBackgroundStr normal">Normal</button>
+                <button type="button" class="removeBackgroundStr heavy">Heavy</button>
               </div>
               </div>
             </article>
@@ -134,14 +144,41 @@
           <li>
             <span style="background-image: url(images/shirt-black.png)"></span>
             <label>NAME & NUMBER</label>
-            <article>
+            <article style="width:400px">
               <div class="close"></div>
+              <div>
+                <div style="float:left;width:calc(50% - 40px);padding: 10px 20px; background: #eee;">
+                  <div class="inputline" style="justify-content: space-around;">
+                    <input type="checkbox" name="nameTrue">
+                    <pre>Name</pre>
+                  </div>
+                  <div class="inputline">
+                    <p style="font-size: 10px; text-align: justify">Link a Textbox: (The text will be replaced by names in your list) </p>
+                  </div>
+                  <div class="inputline">
+                    <button type="button" name="linktextboxToggle">Link mode OFF</button>
+                  </div>
+                </div>
+                <div style="float:left;width:calc(50% - 40px);padding: 10px 20px; background: #eee;">
+                  <div class="inputline" style="justify-content: space-around;">
+                    <input type="checkbox" name="numberTrue">
+                    <pre>Number</pre>
+                  </div>
+                  <div class="inputline">
+                    <p style="font-size: 10px; text-align: justify">Link a Textbox: (The text will be replaced by names in your list) </p>
+                  </div>
+                  <div class="inputline">
+                    <button type="button" name="linktextboxToggle">Link mode OFF</button>
+                  </div>
+                </div>
+              </div>
             </article>
           </li>
         </ul>
         <ul id="layers" style="margin-top: 50px">
           <span>
-            Layers on this side:
+            Layers on this side:<br>
+            <a>Remove Selection</a>
           </span>
           <li>
             <span></span>
@@ -205,7 +242,10 @@
               Total :
             </div>
           </li>
-          <li id="getPixel"></li>
+          <li id="getPixel">
+            <button type="button" onclick="document.removebackground = true">On</button>
+            <button type="button" onclick="document.removebackground = false">On</button>
+          </li>
           <li style="padding-top:0; padding-bottom:0;">
             <div class="inputline" style="justify-content: center">
               Amount :

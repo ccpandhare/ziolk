@@ -5,10 +5,10 @@ fabric.Object.prototype.set({
 });
 
 //define various canvasses
-var canvasfront = new fabric.Canvas('canvasfront', {preserveObjectStacking: true});
-var canvasback = new fabric.Canvas('canvasback', {preserveObjectStacking: true});
-var canvasleft = new fabric.Canvas('canvasleft', {preserveObjectStacking: true});
-var canvasright = new fabric.Canvas('canvasright', {preserveObjectStacking: true});
+var canvasfront = new fabric.Canvas('canvasfront', {preserveObjectStacking: true, selection: false});
+var canvasback = new fabric.Canvas('canvasback', {preserveObjectStacking: true, selection: false});
+var canvasleft = new fabric.Canvas('canvasleft', {preserveObjectStacking: true, selection: false});
+var canvasright = new fabric.Canvas('canvasright', {preserveObjectStacking: true, selection: false});
 var canvasses = [canvasfront, canvasback, canvasleft, canvasright];
 
 //define TShirt SVGs
@@ -90,6 +90,7 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     for (var object in objects) {
       var index = objects.length - object - 1;
       object = objects[index];
+      console.log(object.isLinked);
       var value;
       if (object.type == "i-text") value = object.text;
       else if (object.type == "image") value = object.width + " x " + object.height;
@@ -135,6 +136,18 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     object.top += 1;
     document.activecanvas.renderAll();
   }
+  //deletes object
+  function removeObject() {
+    var index = document.activecanvas.getObjects().indexOf(document.activecanvas.getActiveObject());
+    if (index == document.activecanvas.getObjects().length - 1) isLast = true;
+    if (!isLast) newindex = index + 1;
+    else if (index != 0) newindex = index - 1;
+    else newindex = null;
+    object = document.activecanvas.getActiveObject().remove();
+    console.log("hi2");
+    document.activecanvas.setActiveObject(document.activecanvas.getObjects()[newindex]);
+  }
+
 
   //toggles visibility of object
   function toggleVisible(index,method) {
@@ -234,6 +247,20 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     }
     document.activecanvas.renderAll();
   }
+  //image functions
+    //remove background
+    function removeBackground(R,G,B,A) {
+      var filter = new fabric.Image.filters.RemoveBackground({
+        R: R,
+        G: G,
+        B: B,
+        A: A,
+        threshold: document.removebackgroundstr || 20
+      });
+      var object = document.activecanvas.getActiveObject();
+      object.filters.push(filter);
+      object.applyFilters(document.activecanvas.renderAll.bind(document.activecanvas));
+    }
 
 //add operations
   //add image
@@ -356,20 +383,31 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   });
 
 //image operations
-  $(".removeWhite").click(function(){
-    var filter = new fabric.Image.filters.RemoveRed({
-      threshold: 70,
-      distance: 140
-    });
-    var object = document.activecanvas.getActiveObject();
-    object.filters.push(filter);
-    object.applyFilters(document.activecanvas.renderAll.bind(document.activecanvas));
+  $(".removeBackgroundToggle").click(function(){
+    if(document.removebackground) {
+      $(this).removeClass("active");
+      document.removebackground = false;
+      $(this).html("Remove Background mode is OFF");
+    }
+    else {
+      $(this).addClass("active");
+      document.removebackground = true;
+      $(this).html("Remove Background mode is ON");
+    }
+  });
+  $(".removeBackgroundStr").click(function(){
+    var currentstr = document.removebackgroundstr;
+    if ($(this) == $(".removeBackgroundStr.light")) document.removebackgroundstr = 10;
+    if ($(this) == $(".removeBackgroundStr.normal")) document.removebackgroundstr = 20;
+    if ($(this) == $(".removeBackgroundStr.heavy")) document.removebackgroundstr = 30;
+    $(".removeBackgroundStr").removeClass("active");
+    $(this).addClass("active");
   });
 
 //generic operations
   //remove
   $(".remove").click(function(){
-    object = document.activecanvas.getActiveObject().remove();
+    removeObject();
   });
   //Flip operations
   $(".flipX").click(function(){
@@ -381,8 +419,9 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   //keys
   $(document).keyup(function(e){
     if (e.which==8) {
+      console.log("hi");
       if (!($("input").is(":focus")))
-        $(".remove").trigger("click");
+        removeObject();
     }
     if (e.which == 66 && e.ctrlKey) $(".bold").trigger("click");
     if (e.which == 73 && e.ctrlKey) $(".italic").trigger("click");
@@ -408,9 +447,23 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     $("ul#ops li.selected").removeClass('selected');
   });
   canvasfront.on('mouse:down',function(options) {
-    X = options.e.offsetX;
-    Y = options.e.offsetY;
-    $("#getPixel").innerHTML(canvasfront.getContext("2d").getImageData(X,Y,1,1).data);
+    if (options.target == null) {
+      canvasfront.discardActiveObject();
+    }
+    else if (canvasfront.getActiveObject().type == 'image' && document.removebackground) {
+      X = options.e.offsetX;
+      Y = options.e.offsetY;
+      R = canvasfront.getContext("2d").getImageData(X,Y,1,1).data[0];
+      G = canvasfront.getContext("2d").getImageData(X,Y,1,1).data[1];
+      B = canvasfront.getContext("2d").getImageData(X,Y,1,1).data[2];
+      A = canvasfront.getContext("2d").getImageData(X,Y,1,1).data[3];
+      //$("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
+      removeBackground(R,G,B,A);
+    }
+    else if (canvasfront.getActiveObject().type == 'i-text' && document.linktextmode) {
+      canvasfront.getActiveObject().isLinked = true;
+      canvasfront.getActiveObject().linkedTo = document.linktextto;
+    }
   });
   //back
   canvasback.on('object:selected', function(object){
@@ -424,6 +477,21 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     $("ul#ops li article").slideUp('fast');
     $("ul#ops li.selected").removeClass('selected');
   });
+  canvasback.on('mouse:down',function(options) {
+    if (options.target == null) {
+      canvasback.discardActiveObject();
+    }
+    else if (canvasback.getActiveObject().type == 'image' && document.removebackground) {
+      X = options.e.offsetX;
+      Y = options.e.offsetY;
+      R = canvasback.getContext("2d").getImageData(X,Y,1,1).data[0];
+      G = canvasback.getContext("2d").getImageData(X,Y,1,1).data[1];
+      B = canvasback.getContext("2d").getImageData(X,Y,1,1).data[2];
+      A = canvasback.getContext("2d").getImageData(X,Y,1,1).data[3];
+      $("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
+        removeBackground(R,G,B,A);
+    }
+  });
   //left
   canvasleft.on('object:selected', function(object){
     object = object.target;
@@ -436,6 +504,23 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     $("ul#ops li article").slideUp('fast');
     $("ul#ops li.selected").removeClass('selected');
   });
+  canvasleft.on('mouse:down',function(options) {
+    if (options.target == null) {
+      canvasleft.discardActiveObject();
+    }
+    else {
+      X = options.e.offsetX;
+      Y = options.e.offsetY;
+      R = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[0];
+      G = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[1];
+      B = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[2];
+      A = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[3];
+      $("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
+      if (canvasleft.getActiveObject().type == 'image' && document.removebackground) {
+        removeBackground(R,G,B,A);
+      }
+    }
+  });
   //right
   canvasright.on('object:selected', function(object){
     object = object.target;
@@ -447,6 +532,23 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   canvasright.on('selection:cleared',function(){
     $("ul#ops li article").slideUp('fast');
     $("ul#ops li.selected").removeClass('selected');
+  });
+  canvasright.on('mouse:down',function(options) {
+    if (options.target == null) {
+      canvasright.discardActiveObject();
+    }
+    else {
+      X = options.e.offsetX;
+      Y = options.e.offsetY;
+      R = canvasright.getContext("2d").getImageData(X,Y,1,1).data[0];
+      G = canvasright.getContext("2d").getImageData(X,Y,1,1).data[1];
+      B = canvasright.getContext("2d").getImageData(X,Y,1,1).data[2];
+      A = canvasright.getContext("2d").getImageData(X,Y,1,1).data[3];
+      $("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
+      if (canvasright.getActiveObject().type == 'image' && document.removebackground) {
+        removeBackground(R,G,B,A);
+      }
+    }
   });
 
   addRect();
