@@ -106,7 +106,7 @@ ul li > article::before {
   content: '';
   position: absolute;
   left: -30px;
-  top: 135px;
+  top: 130px;
   box-sizing: border-box;
   border-right: 15px solid white;
   border-top: 15px solid transparent;

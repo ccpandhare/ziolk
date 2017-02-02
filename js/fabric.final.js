@@ -32,6 +32,7 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     document.activecanvas.setActiveObject(thisObj);
     thisObj.center();
     thisObj.setCoords();
+    //console.log(thisObj.canvas.lowerCanvasEl.id);
     document.activecanvas.renderAll();
   }
   //add an image object
@@ -90,7 +91,6 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     for (var object in objects) {
       var index = objects.length - object - 1;
       object = objects[index];
-      console.log(object.isLinked);
       var value;
       if (object.type == "i-text") value = object.text;
       else if (object.type == "image") value = object.width + " x " + object.height;
@@ -122,18 +122,22 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   //moves object one unit left
   function moveLeft(object) {
     object.left -= 1;
+    object.setCoords();
     document.activecanvas.renderAll();
   }
   function moveRight(object) {
     object.left += 1;
+    object.setCoords();
     document.activecanvas.renderAll();
   }
   function moveUp(object) {
     object.top -= 1;
+    object.setCoords();
     document.activecanvas.renderAll();
   }
   function moveDown(object) {
     object.top += 1;
+    object.setCoords();
     document.activecanvas.renderAll();
   }
   //deletes object
@@ -235,6 +239,51 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     }
     $(".font").val(object.get('fontFamily'));
   }
+  //linktext mode
+  function linkTextMode(button) {
+    alert();
+  }
+  //get linked text object
+  function getLinked(type) {
+    var objectsfront = canvasfront.getObjects();
+    var objectsback = canvasback.getObjects();
+    var objectsleft = canvasleft.getObjects();
+    var objectsright = canvasright.getObjects();
+    for (var i in objectsfront) {
+      if (objectsfront[i].isLinked && (objectsfront[i].linkedTo == type)) {
+        return objectsfront[i];
+      }
+    }
+    for (var i in objectsback) {
+      if (objectsback[i].isLinked && (objectsback[i].linkedTo == type)) {
+        return objectsback[i];
+      }
+    }
+    for (var i in objectsleft) {
+      if (objectsleft[i].isLinked && (objectsleft[i].linkedTo == type)) {
+        return objectsleft[i];
+      }
+    }
+    for (var i in objectsright) {
+      if (objectsright[i].isLinked && (objectsright[i].linkedTo == type)) {
+        return objectsright[i];
+      }
+    }
+  }
+  //Link text
+  function linkText() {
+    tolink = document.activecanvas.getActiveObject();
+    current = getLinked(document.linktextmode);
+    tolink.isLinked = true;
+    tolink.linkedTo = document.linktextmode;
+    canvas = tolink.canvas.lowerCanvasEl.id.slice(6);
+    if (document.linktextmode == "name")
+    $("#currentlinkedname").html("Currently, the text \""+tolink.text+"\" on \""+canvas+"\" is linked to 'name'");
+    else if (document.linktextmode == "number")
+    $("#currentlinkednumber").html("Currently, the text \""+tolink.text+"\" on \""+canvas+"\" is linked to 'number'");
+    delete document.linktextmode;
+  }
+
   //horizontal&vertical flip
   function flipObject(object, element, type) {
     if(object.get(type)) {
@@ -259,6 +308,18 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
       });
       var object = document.activecanvas.getActiveObject();
       object.filters.push(filter);
+      object.applyFilters(document.activecanvas.renderAll.bind(document.activecanvas));
+    }
+    //get boundaries
+    function getBoundaries() {
+      var filter = new fabric.Image.filters.GetBoundaries({threshold: 10});
+      var object = document.activecanvas.getActiveObject();
+      object.filters.push(filter);
+      object.applyFilters(document.activecanvas.renderAll.bind(document.activecanvas));
+    }
+    function undoFilter() {
+      var object = document.activecanvas.getActiveObject();
+      object.filters.pop();
       object.applyFilters(document.activecanvas.renderAll.bind(document.activecanvas));
     }
 
@@ -302,6 +363,14 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   $("#tshirtcolor").change(function(){
     document.tshirtcolor = $(this).val();
     $("div#front").css({'background': "url(\""+TShirtSVG("front",document.tshirtcolor)+"\")"});
+  });
+  //link text mode
+  $(".linktextToggle").click(function(){
+    $(".linktextToggle").removeClass("active");
+    delete document.linktextmode;
+    $(this).addClass("active");
+    document.linktextmode = $(this).attr("name");
+    $(".linktextToggle").html("Link mode : "+document.linktextmode)
   });
 
 //text operations
@@ -397,9 +466,9 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
   });
   $(".removeBackgroundStr").click(function(){
     var currentstr = document.removebackgroundstr;
-    if ($(this) == $(".removeBackgroundStr.light")) document.removebackgroundstr = 10;
-    if ($(this) == $(".removeBackgroundStr.normal")) document.removebackgroundstr = 20;
-    if ($(this) == $(".removeBackgroundStr.heavy")) document.removebackgroundstr = 30;
+    if ($(this) == $(".removeBackgroundStr.light")) document.removebackgroundstr = 2;
+    if ($(this) == $(".removeBackgroundStr.normal")) document.removebackgroundstr = 5;
+    if ($(this) == $(".removeBackgroundStr.heavy")) document.removebackgroundstr = 10;
     $(".removeBackgroundStr").removeClass("active");
     $(this).addClass("active");
   });
@@ -461,8 +530,9 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
       removeBackground(R,G,B,A);
     }
     else if (canvasfront.getActiveObject().type == 'i-text' && document.linktextmode) {
-      canvasfront.getActiveObject().isLinked = true;
-      canvasfront.getActiveObject().linkedTo = document.linktextto;
+      linkText();
+      $(".linktextToggle").removeClass("active");
+      $(".linktextToggle").html("Link mode OFF");
     }
   });
   //back
@@ -488,8 +558,13 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
       G = canvasback.getContext("2d").getImageData(X,Y,1,1).data[1];
       B = canvasback.getContext("2d").getImageData(X,Y,1,1).data[2];
       A = canvasback.getContext("2d").getImageData(X,Y,1,1).data[3];
-      $("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
-        removeBackground(R,G,B,A);
+      //$("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
+      removeBackground(R,G,B,A);
+    }
+    else if (canvasback.getActiveObject().type == 'i-text' && document.linktextmode) {
+      linkText();
+      $(".linktextToggle").removeClass("active");
+      $(".linktextToggle").html("Link mode OFF");
     }
   });
   //left
@@ -508,17 +583,20 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     if (options.target == null) {
       canvasleft.discardActiveObject();
     }
-    else {
+    else if (canvasleft.getActiveObject().type == 'image' && document.removebackground) {
       X = options.e.offsetX;
       Y = options.e.offsetY;
       R = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[0];
       G = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[1];
       B = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[2];
       A = canvasleft.getContext("2d").getImageData(X,Y,1,1).data[3];
-      $("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
-      if (canvasleft.getActiveObject().type == 'image' && document.removebackground) {
-        removeBackground(R,G,B,A);
-      }
+      //$("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
+      removeBackground(R,G,B,A);
+    }
+    else if (canvasleft.getActiveObject().type == 'i-text' && document.linktextmode) {
+      linkText();
+      $(".linktextToggle").removeClass("active");
+      $(".linktextToggle").html("Link mode OFF");
     }
   });
   //right
@@ -537,17 +615,20 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
     if (options.target == null) {
       canvasright.discardActiveObject();
     }
-    else {
+    else if (canvasright.getActiveObject().type == 'image' && document.removebackground) {
       X = options.e.offsetX;
       Y = options.e.offsetY;
       R = canvasright.getContext("2d").getImageData(X,Y,1,1).data[0];
       G = canvasright.getContext("2d").getImageData(X,Y,1,1).data[1];
       B = canvasright.getContext("2d").getImageData(X,Y,1,1).data[2];
       A = canvasright.getContext("2d").getImageData(X,Y,1,1).data[3];
-      $("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
-      if (canvasright.getActiveObject().type == 'image' && document.removebackground) {
-        removeBackground(R,G,B,A);
-      }
+      //$("#getPixel").css("background","rgb("+R+","+G+","+B+","+A+")");
+      removeBackground(R,G,B,A);
+    }
+    else if (canvasright.getActiveObject().type == 'i-text' && document.linktextmode) {
+      linkText();
+      $(".linktextToggle").removeClass("active");
+      $(".linktextToggle").html("Link mode OFF");
     }
   });
 
