@@ -233,7 +233,9 @@ var frontsidesvg = "data:image/svg+xml;utf8,<svg version='1.1' id='Capa_1' xmlns
       $("#shapeops article input[name='updatefill']").val(object.fill);
       $("#shapeops article input[name='updatestrokewidth']").val(object.strokeWidth);
     }
-    else {
+    else if(object.type == 'image'){
+      alert();
+      $("#imageops").trigger("click");
       $(".formatobject.active").removeClass("active");
       $("#imageops .formatobject").addClass("active");
     }

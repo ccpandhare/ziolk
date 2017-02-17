@@ -112,6 +112,35 @@ ul li > article::before {
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 }
+li#zoom article {
+  display: none;
+  width: auto;
+  height: auto;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: -20px;
+  background: white;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  border: 1px solid #eee;
+  border-radius: 7px;
+  box-shadow: 0 0 10px #eee;
+  cursor: default;
+  z-index: 3;
+  color: black !important;
+}
+li#zoom article::before {
+  width: 15px;
+  height: 15px;
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: -30px;
+  box-sizing: border-box;
+  border-bottom: 15px solid white;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+}
 ul li .close {
   display: block;
   position: absolute;

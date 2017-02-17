@@ -60,3 +60,8 @@ $('.export').click(function(){
   canvasright.renderAll();
   alert("data has been exported. It lives in the JavaScript as of now");
 });
+
+$("li#zoom").click(function(){
+  $("li#zoom article").slideToggle('fast');
+  $(this).toggleClass('active');
+});

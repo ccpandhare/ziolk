@@ -12,11 +12,14 @@
   </head>
   <body>
     <header>
-      <ul id="top" style="display:none">
-        <li class="topselector">F</li>
-        <li class="topselector">B</li>
-        <li class="topselector">L</li>
-        <li class="topselector">R</li>
+      <ul id="top">
+        <li class="topselector">Previev</li>
+        <li class="topselector">Undo</li>
+        <li class="topselector">Redo</li>
+        <li class="topselector" id="zoom">
+          Zoom
+          <article><input type="range" name="zoomselector" value="1" min="1" max="2" step="0.1"></article>
+        </li>
       </ul>
     </header>
     <aside id="leftpanel">
@@ -39,7 +42,7 @@
               <input type="text" id="tshirtcolor" />
             </article>
           </li>
-          <li>
+          <li id="imageops">
             <span style="background-image: url(images/shirt.png)"></span>
             <label>IMAGE</label>
             <article>
@@ -49,7 +52,7 @@
                 <input type="file" id="imgtoadd" value="" multiple="" />
                 <button type="button" id="addimg">Add Image</button>
               </div>
-              <div class="formatobjject">
+              <div class="formatobject">
               <span>This Image:</span>
               <div class="inputline">
                 <button type="button" class="flipX">flip horizontal</button>
@@ -64,7 +67,7 @@
               <div class="inputline">
                 <pre>Mode:</pre>
                 <button type="button" class="removeBackgroundStr light">Lite</button>
-                <button type="button" class="removeBackgroundStr normal">Normal</button>
+                <button type="button" class="removeBackgroundStr normal active">Normal</button>
                 <button type="button" class="removeBackgroundStr heavy">Heavy</button>
               </div>
               </div>
@@ -136,6 +139,9 @@
               </div>
               <div class="inputline">
                 <pre>Outline width: </pre><input type="text" name="updatestrokewidth"/>
+              </div>
+              <div class="inputline">
+                <button type="button" class="remove">Remove</button>
               </div>
               </div>
 

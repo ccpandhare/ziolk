@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box !important;
+}
+
+body {
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 15vh;
+    background: rgba(255,255,255,0.2);
+    transition: all .3s ease-in-out;
+    z-index: 3;
+    box-shadow: 0 -50px 100px white inset;
+}
+
+nav>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav>div>ul>li {
+    position: relative;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 15px 25px 15px 25px;
+    height: 50px;
+    font-weight: 700;
+    border-bottom: 5px solid transparent;
+    transition: background 0.3s ease-in-out, border-bottom-color 0.2s ease-in-out, color 0.3s ease-in-out;
+    transition-delay: 0, 0.1s, 0;
+}
+
+nav .image {
+  font-family: fantasy;
+  font-weight: 900;
+  font-size: 40px;
+  height: 40px
+}
+
+nav .login {
+  height: 50px;
+  font-size: 18px;
+  line-height: 24px;
+  padding: 13px 18px;
+  background: transparent;
+  border-radius: 8px;
+  color: #222;
+  font-weight: 900;
+  transition: all 0.2s ease-in-out
+}
+
+nav .login:hover {
+  background: orange;
+  color: #fff;
+  cursor: pointer;
+}
+
+nav>div>ul>li:hover {
+    background: rgba(34,34,34,0.7);
+    border-bottom-color: #1FAEFF;
+    color: #FFF;
+    cursor: pointer;
+}
+
+nav ul ul>li {
+    border-bottom: 1px solid #ddd;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    transition: border-bottom 0.1s ease-in-out;
+}
+
+nav ul ul>li:first-of-type {
+  padding-top: 0 !important;
+}
+
+nav ul ul>li:hover {
+    border-bottom: 4px solid #1FAEFF;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-weight: 900;
+}
+
+nav>div>ul>li:hover ul {
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+}
+
+nav ul ul {
+    transform: translateY(-50px) scale(0.5);
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    top: 60px;
+    left: -20px;
+    right: -20px;
+    background: rgba(34,34,34,0.7);
+    padding: 20px;
+    transform-origin: top;
+    transition: transform 0.1s cubic-bezier(0.5,0.5,0.5,1) 0.1s, opacity 0.1s linear 0.1s;
+}
+
+nav.down {
+    height: 10vh;
+    background: #fff
+}
+
+section {
+    width: 100vw;
+    height: 75vh;
+    float: left;
+}
+
+section.large {
+    height: 100vh;
+}
+
+section.small {
+  height: 50vh;
+}
+
+#slider div {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#slider p {
+  z-index: 2;
+  /*background: rgba(255,255,255,0.2);*/
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px 25px;
+  color: #fff;
+  text-shadow: 0 0 10px #222;
+  position: absolute;
+  top: calc(50% - 120px);
+  left: calc(0.3 * (100% - 600px));
+  width: 600px;
+  height: 220px;
+  font-size: 40px;
+  font-family: sans-serif;
+  border-radius: 11px;
+  /*box-shadow: 100px 50px 100px #fff inset;*/
+  box-shadow: 0 0 100px #444 inset;
+  border: 1px solid #222;
+}
+#slider p button {
+  background: darkorange;
+  border-radius: 7px;
+  color: white;
+  font-size: 20px;
+  border: 0px !important;
+  box-shadow: 0 0 0px black;
+  padding: 7px 15px;
+  transition: all 0.1s ease-in-out;
+  text-shadow: 0 0 2px black;
+}
+#slider p button:hover {
+  background: white;
+  border-color: transparent;
+  color: darkorange;
+  text-shadow: 0 0 0px black;
+  box-shadow: 0 0 2px black inset;
+}
+.slider-back {
+  z-index: 0;
+  background-image: url(../images/b.jpg);
+}
+.slider-fore {
+  z-index: 1;
+  background-image: url(../images/a.jpg);
+}
+.hidden {
+
+}
+
+#whychoose {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#whychoose span {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+#whychoose ul {
+  list-style-type: none;
+  height: 100px;
+  width: 70vw;
+  border: 1px solid black;
+}
+
+#whychoose ul li {
+  width: 33.33%;
+  height: 100%;
+  border: 1px solid black;
+  float: left;
+}
