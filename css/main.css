@@ -4,8 +4,7 @@
     box-sizing: border-box !important;
 }
 
-body {
-}
+body {}
 
 nav {
     position: fixed;
@@ -13,7 +12,7 @@ nav {
     left: 0;
     right: 0;
     height: 15vh;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     transition: all .3s ease-in-out;
     z-index: 3;
     box-shadow: 0 -50px 100px white inset;
@@ -30,46 +29,54 @@ nav ul {
     list-style-type: none;
 }
 
+.hidden1 span {
+    display: none
+}
+
+#smallNav {
+  display: none;
+}
+
 nav>div>ul>li {
     position: relative;
     float: left;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding: 15px 25px 15px 25px;
-    height: 50px;
-    font-weight: 700;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding: 10px 20px 10px 20px;
+    height: 40px;
+    font-weight: 600;
     border-bottom: 5px solid transparent;
     transition: background 0.3s ease-in-out, border-bottom-color 0.2s ease-in-out, color 0.3s ease-in-out;
     transition-delay: 0, 0.1s, 0;
 }
 
 nav .image {
-  font-family: fantasy;
-  font-weight: 900;
-  font-size: 40px;
-  height: 40px
+    font-family: fantasy;
+    font-weight: 900;
+    font-size: 40px;
+    height: 40px
 }
 
 nav .login {
-  height: 50px;
-  font-size: 18px;
-  line-height: 24px;
-  padding: 13px 18px;
-  background: transparent;
-  border-radius: 8px;
-  color: #222;
-  font-weight: 900;
-  transition: all 0.2s ease-in-out
+    height: 50px;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 13px 18px;
+    background: transparent;
+    border-radius: 8px;
+    color: #222;
+    font-weight: 900;
+    transition: all 0.2s ease-in-out
 }
 
 nav .login:hover {
-  background: orange;
-  color: #fff;
-  cursor: pointer;
+    background: orange;
+    color: #fff;
+    cursor: pointer;
 }
 
 nav>div>ul>li:hover {
-    background: rgba(34,34,34,0.7);
+    background: rgba(34, 34, 34, 0.7);
     border-bottom-color: #1FAEFF;
     color: #FFF;
     cursor: pointer;
@@ -83,7 +90,7 @@ nav ul ul>li {
 }
 
 nav ul ul>li:first-of-type {
-  padding-top: 0 !important;
+    padding-top: 0 !important;
 }
 
 nav ul ul>li:hover {
@@ -103,63 +110,231 @@ nav ul ul {
     opacity: 0;
     position: absolute;
     text-align: center;
-    top: 60px;
+    top: 50px;
     left: -20px;
     right: -20px;
-    background: rgba(34,34,34,0.7);
+    background: rgba(34, 34, 34, 0.7);
     padding: 20px;
     transform-origin: top;
-    transition: transform 0.1s cubic-bezier(0.5,0.5,0.5,1) 0.1s, opacity 0.1s linear 0.1s;
+    transition: transform 0.1s cubic-bezier(0.5, 0.5, 0.5, 1) 0.1s, opacity 0.1s linear 0.1s;
 }
 
 nav.down {
     height: 10vh;
-    background: #fff
+    background: #fff;
+    box-shadow: 0 0 10px #333;
+}
+
+@media all and (max-width:1000px) {
+  .hidden1 {display: inline !important;}
+  .hide1 {display: none;}
+}
+@media all and (max-width: 600px) {
+  #smallNav {display: block;}
+  #bigNav {display: none;}
 }
 
 section {
     width: 100vw;
-    height: 75vh;
+    min-height: 75vh;
     float: left;
 }
 
 section.large {
-    height: 100vh;
+    min-height: 100vh;
 }
 
-section.small {
-  height: 50vh;
+section.small, footer {
+    min-height: 50vh;
 }
 
 #slider div {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     bottom: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
 #slider p {
-  z-index: 2;
-  /*background: rgba(255,255,255,0.2);*/
-  background: rgba(0, 0, 0, 0.6);
-  padding: 20px 25px;
-  color: #fff;
-  text-shadow: 0 0 10px #222;
-  position: absolute;
-  top: calc(50% - 120px);
-  left: calc(0.3 * (100% - 600px));
-  width: 600px;
-  height: 220px;
-  font-size: 40px;
-  font-family: sans-serif;
-  border-radius: 11px;
-  /*box-shadow: 100px 50px 100px #fff inset;*/
-  box-shadow: 0 0 100px #444 inset;
-  border: 1px solid #222;
+    z-index: 2;
+    /*background: rgba(255,255,255,0.2);*/
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px 25px;
+    color: #fff;
+    text-shadow: 0 0 10px #222;
+    position: absolute;
+    top: calc(50% - 120px);
+    left: calc(0.3 * (100% - 600px));
+    width: 600px;
+    height: 220px;
+    font-size: 40px;
+    font-family: sans-serif;
+    border-radius: 11px;
+    /*box-shadow: 100px 50px 100px #fff inset;*/
+    box-shadow: 0 0 100px #444 inset;
+    border: 1px solid #222;
 }
+
 #slider p button {
+    background: darkorange;
+    border-radius: 7px;
+    color: white;
+    font-size: 20px;
+    border: 0px !important;
+    box-shadow: 0 0 0px black;
+    padding: 7px 15px;
+    transition: all 0.1s ease-in-out;
+    text-shadow: 0 0 2px black;
+}
+
+#slider p button:hover {
+    background: white;
+    border-color: transparent;
+    color: darkorange;
+    text-shadow: 0 0 0px black;
+    box-shadow: 0 0 2px black inset;
+}
+
+@media all and (max-width: 650px) {
+  #slider p {
+    width: 100vw;
+    left: 0;
+    border-radius: 0;
+    font-size: 30px;
+    height: auto;
+    text-align: center;
+  }
+}
+
+.slider-back {
+    z-index: 0;
+    background-image: url(../images/b.jpg);
+}
+
+.slider-fore {
+    z-index: 1;
+    background-image: url(../images/a.jpg);
+}
+
+.hidden1 {
+    display: none;
+}
+
+#whychoose, #testimonials, #howworks, #reachus, #footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#whychoose span, #testimonials span, #howworks span, #reachus span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+#whychoose ul, #testimonials ul, #howworks ul, ul#foo1, ul#foo2 {
+    list-style-type: none;
+    overflow: hidden;
+    height: auto;
+    width: 70vw;
+}
+
+#whychoose ul li, #testimonials ul li, #howworks ul li {
+    width: calc(33.33% - 20px);
+    min-width: 208px;
+    display: inline-block;
+    height: 100%;
+    border-right: 1px solid rgba(200,200,200,0.7);
+    float: left;
+    padding: 0 20px;
+}
+
+ul#foo1>div>li, ul#foo2>div>li {
+  width: calc(20% - 20px);
+  min-width: 150px;
+  display: inline-block;
+  height: 100%;
+  border-right: 1px solid rgba(200,200,200,0.7);
+  float: left;
+  padding: 0 20px;
+}
+
+ul#foo1 > div {
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+#testimonials ul li {
+    margin: 0 10px;
+    background: #fff url(../images/man.jpg) center no-repeat;
+    background-size: cover;
+    color: #fff;
+    padding: 0;
+    border: 0;
+}
+
+.pic-cover {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 50px 30px;
+  background: rgba(255,165,0,0.6);
+}
+
+#whychoose ul li:last-of-type, #testimonials ul li:last-of-type, #howworks ul li:last-of-type {
+  border-right: 0px;
+}
+
+#whychoose .title, #testimonials .title, #howworks .title, #reachus .title {
+  font-size: 30px;
+  margin: 10px 0;
+}
+#whychoose hr, #testimonials hr, #howworks hr, #reachus hr {
+  width: 50px;
+  border: 3.5px solid orange;
+  margin: 0 auto 40px auto;
+}
+
+.why-li div, .how-li div{
+    width: 80%;
+    padding-top: 80%;
+    margin: 0 auto;
+    background: url(../images/money.svg) no-repeat center;
+    background-size: 80% auto;
+}
+
+.how-li div {
+  background-image: url(../images/tool.svg);
+}
+
+.why-li h3, .how-li h3{
+    text-align: center;
+}
+.testimonials-li h3 {
+    text-align: center;
+    font-size: 25px;
+    margin: 20px 0 0 0;
+}
+
+.why-li p, .how-li p {
+    text-align: justify;
+    padding: 20px 10px;
+}
+.testimonials-li p {
+  display: inline-block;
+  text-align: center;
+  padding: 30px 10px
+}
+
+#whychoose button {
+  display: block;
+  margin: 20px auto;
   background: darkorange;
   border-radius: 7px;
   color: white;
@@ -167,50 +342,91 @@ section.small {
   border: 0px !important;
   box-shadow: 0 0 0px black;
   padding: 7px 15px;
+  transition: background,text-shadow,box-shadow,color 0.1s ease-in-out;
+  transition-delay: 0.05s,0,0,0;
+  text-shadow: 0 0 2px black;
+}
+
+#whychoose button:hover {
+    background: white;
+    border-color: transparent;
+    color: darkorange;
+    text-shadow: 0 0 0px black;
+    box-shadow: 0 0 2px black inset;
+}
+
+@media all and (max-width: 900px) {
+    #whychoose ul li, #testimonials ul li, #howworks ul li {
+        width: 50%;
+    }
+    #whychoose ul li:last-of-type, #testimonials ul li:last-of-type, #howworks ul li:last-of-type {
+        margin-left: 25%;
+    }
+}
+
+@media all and (max-width: 718px) {
+    #whychoose ul li, #testimonials ul li, #howworks ul li {
+        width: auto;
+        margin-left: 0 !important;
+    }
+    .why-li div, .how-li div, .testimonials-li div {
+        width: 50%;
+        padding-top: 50%;
+    }
+}
+
+@media all and (max-width: 520px) {
+    .why-li div, .how-li div, .testimonials-li div {
+        display: none;
+    }
+}
+
+div.inputline {
+  display: flex;
+  justify-content: space-around;
+  margin: 0px 0;
+  color: #000;
+}
+
+div.inputline input, textarea {
+  border-radius: 7px;
+  border: 0;
+  box-shadow: 0 0 5px #333 inset;
+  margin: 0 inherit;
+}
+
+div.inputline input {
+  padding: 10px 30px;
+  width: calc(100% - 10px);
+  margin: 5px;
+}
+
+div.inputline textarea {
+  padding: 10px 30px;
+  width: calc(100% - 10px);
+  margin: 5px auto;
+}
+
+div.inputline input[type="submit"] {
+  background: darkorange;
+  border-radius: 7px;
+  color: white;
+  font-size: 20px;
+  width: auto;
+  border: 0px !important;
+  box-shadow: 0 0 0px black;
+  padding: 7px 30px;
   transition: all 0.1s ease-in-out;
   text-shadow: 0 0 2px black;
 }
-#slider p button:hover {
-  background: white;
-  border-color: transparent;
-  color: darkorange;
-  text-shadow: 0 0 0px black;
-  box-shadow: 0 0 2px black inset;
-}
-.slider-back {
-  z-index: 0;
-  background-image: url(../images/b.jpg);
-}
-.slider-fore {
-  z-index: 1;
-  background-image: url(../images/a.jpg);
-}
-.hidden {
-
+div.inputline input[type="submit"]:hover {
+background: white;
+border-color: transparent;
+color: darkorange;
+text-shadow: 0 0 0px black;
+box-shadow: 0 0 2px black inset;
 }
 
-#whychoose {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#whychoose span {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-}
-
-#whychoose ul {
-  list-style-type: none;
-  height: 100px;
-  width: 70vw;
+ul#foo1 {
   border: 1px solid black;
-}
-
-#whychoose ul li {
-  width: 33.33%;
-  height: 100%;
-  border: 1px solid black;
-  float: left;
 }

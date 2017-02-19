@@ -17,7 +17,7 @@
       <div class="image">
         Ziolk
       </div>
-      <ul>
+      <ul id="bigNav">
         <li>Design Now</li>
         <li>
           Have a Design?
@@ -28,10 +28,32 @@
             <li>Sweatshirt with zip</li>
           </ul>
         </li>
-        <li>Instant Quote</li>
-        <li>How it Works</li>
-        <li>Help</li>
-        <li>About</li>
+        <li class="hide1">Instant Quote</li>
+        <li class="hide1">How it Works</li>
+        <li class="hide1">Help</li>
+        <li class="hide1">About</li>
+        <li class="hidden1">
+          More...
+          <ul style="left: -50px; right: -50px">
+            <li>Instant Quote</li>
+            <li>How it Works</li>
+            <li>Help</li>
+            <li>About</li>
+          </ul>
+        </li>
+      </ul>
+      <ul id="smallNav">
+        <li>
+          Menu
+          <ul style="left:-50px;right:-50px">
+            <li>Design Now</li>
+            <li>Have a Design?</li>
+            <li>Instant Quote</li>
+            <li>How it Works</li>
+            <li>Help</li>
+            <li>About</li>
+          </ul>
+        </li>
       </ul>
       <div class="login">
         Login
@@ -47,17 +69,151 @@
       <button type="button" name="button">Button 1</button>
     </p>
   </section>
-  <section id="whychoose" class="small">
+  <section id="whychoose" class="small" style="padding: 60px 0">
     <div class="wrapper">
       <span class="title">Why So Many Choose Us</span>
+      <hr>
       <ul id="why-ul">
-        <li>
-          <div class="why-image">
-
+        <div style="display:flex;overflow:hidden;justify-content:center">
+          <li class="why-li">
+            <div></div>
+            <h3>Satisfaction Guaranteed</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </li>
+          <li class="why-li">
+            <div></div>
+            <h3>Better Pricing</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </li>
+          <li class="why-li">
+            <div></div>
+            <h3>Design Review and Repair</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </li>
+        </div>
+      </ul>
+      <button type="button" name="button">Button 2</button>
+    </div>
+  </section>
+  <section id="testimonials" class="small" style="padding: 60px 0;background:#333; color: #fff;">
+    <div class="wrapper">
+      <span class="title">Testimonials</span>
+      <hr>
+      <ul id="testimonials-ul" style="color:#333">
+        <li class="testimonials-li">
+          <div class="pic-cover">
+            <h3>ABCD</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
           </div>
-          <h3></h3>
-          <p></p>
         </li>
+        <li class="testimonials-li">
+          <div class="pic-cover">
+            <h3>EFGH</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </div>
+        </li>
+        <li class="testimonials-li">
+          <div class="pic-cover">
+            <h3>IJKL</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section id="howworks" class="small" style="padding: 60px 0">
+    <div class="wrapper">
+      <span class="title">How it Works</span>
+      <hr>
+      <ul id="how-ul">
+        <div style="display:flex;overflow:hidden;justify-content:center">
+          <li class="how-li">
+            <div></div>
+            <h3>Repairs</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </li>
+          <li class="how-li">
+            <div></div>
+            <h3>Upholstry</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </li>
+          <li class="how-li">
+            <div></div>
+            <h3>Paintwork</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. lorem ipsum dolor sit amet, consectetur</p>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </section>
+  <section class="small" id="reachus" style="padding: 20px 0; background: #333; color: #fff">
+    <div class="wrapper">
+      <span class="title">Reach Us</span>
+      <hr>
+      <form id="contact" action="/" method="post">
+        <div class="inputline">
+          <input type="text" name="name" value="" placeholder="Name" required>
+          <input type="text" name="email" value="" placeholder="Email" required>
+        </div>
+        <div class="inputline">
+          <input type="number" min="1000000000" max="9999999999" name="phone" placeholder="Phone" required>
+        </div>
+        <div class="inputline">
+          <textarea name="message" rows="8" cols="70" placeholder="Message"></textarea>
+        </div>
+        <div class="inputline">
+          <input type="submit" name="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+  </section>
+  <section id="footer" class="small">
+    <div class="wrapper" style="display: inline-block">
+      <ul id="foo1">
+        <div class="">
+          <li>
+            <h4>Company info</h4>
+            <ul class="list">
+              <li>Blog</li>
+              <li>Address</li>
+            </ul>
+          </li>
+          <li>
+            <h4>For Buyers</h4>
+            <ul class="list">
+              <li>Abc123</li>
+              <li>Def456</li>
+              <li>Abc123</li>
+              <li>Def456</li>
+            </ul>
+          </li>
+          <li>
+            <h4>For Sellers</h4>
+            <ul class="list">
+              <li>Abc123</li>
+              <li>Def456</li>
+            </ul>
+          </li>
+          <li>
+            <h4>For Businesses</h4>
+            <ul class="list">
+              <li>Abc123</li>
+            </ul>
+          </li>
+          <li>
+            <h4>Company info</h4>
+            <ul class="list">
+              <li>Blog</li>
+              <li>Address</li>
+            </ul>
+          </li>
+        </div>
+      </ul>
+      <ul id="foo2">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
         <li></li>
         <li></li>
       </ul>
